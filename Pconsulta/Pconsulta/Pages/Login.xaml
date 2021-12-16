@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:controls="clr-namespace:Pconsulta.Controls"
+             x:Class="Pconsulta.Pages.LoginPage"
+             BackgroundColor="{AppThemeBinding Light='white', Dark='white'}"
+             
+             >
+
+    <Grid x:Name="FullScreenLandscape">
+       
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+
+        <Label
+            Grid.Row="1"
+            Margin="20,0,0,0"
+            HorizontalOptions="Start"
+            TextColor="#303f9f"
+            VerticalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span FontAttributes="Bold" 
+                          Text="UN PUNTO, MIL OPORTUNIDADES "/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label
+            Grid.Row="2"
+            Margin="20,0,0,10"
+            HorizontalOptions="Start"
+            VerticalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span TextColor="#606060" FontAttributes="None" Text="disfruta de la experiencia "/>
+                    <Span TextColor="#303f9f" FontAttributes="Bold" Text="MIL PAGOS"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Image
+            Grid.Row="3"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Source="milPagosMano.png"
+            />
+
+        <controls:StandardEntry
+            Text="{Binding User}"
+            Grid.Row="4"
+            Margin="20,10,20,0"
+            HeightRequest="50"
+            Background="beige"
+            BorderColor="#007fff"
+            BorderThickness="1"
+            CornerRadius="8"
+            TextColor="#3449AE"
+            Placeholder="Usuario"
+            PlaceholderColor="#8491C8"
+            />
+
+        <controls:StandardEntry
+            Text="{Binding Pass}"
+            Grid.Row="5"
+            Margin="20,0,20,0"
+            HeightRequest="50"
+            Background="beige"
+            BorderColor="#007fff"
+            BorderThickness="1"
+            CornerRadius="8"
+            TextColor="#3449AE"
+            IsPassword="True"
+            Placeholder="Contraseña"
+            PlaceholderColor="#8491C8"/>
+        
+
+        <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading }"  Grid.Row="7" />
+
+        <StackLayout Grid.Row="6" Margin="16,0" Orientation="Horizontal">
+            <CheckBox Color="#3449AE" IsChecked="{Binding SwitchMe}"/>
+            <Label Text="recuerdame" VerticalOptions="Center"  TextColor="Black" />
+        </StackLayout>
+
+        
+        <Button
+            Grid.Row="7"
+            Margin="20,0"
+            BackgroundColor="#303f9f"
+            CornerRadius="8"
+            Text="{Binding loginBtn}"  
+            Command="{Binding toMenuPageCommand}"
+           />
+
+        <Button
+            Grid.Row="10"
+            Margin="20,0"
+            WidthRequest ="100"
+            CornerRadius ="40"
+            HorizontalOptions="End"
+            BackgroundColor="#0000"           
+            ImageSource="fingerprintHuella.png"   
+           />
+
+        <Path Grid.Row="0"  Data="m196.02,148.25999l316.00001,0l0,17.4846c-124.00001,60.58093 -225.00001,-29.50687 -316.00001,2.87675c0,-6.78712 0,-13.57423 0,-20.36135z" Stroke="#007fff" Aspect="Fill" Fill="#303f9f"/>
+        <Path Grid.Row="10" Margin="-180,0,0,0" Rotation="180" Data="m152.41862,496.46152l471.60143,0l0,8.36852c-17.27319,46.70444 -341.7618,-23.69511 -471.60143,1.37688c0,-3.24847 0,-6.49693 0,-9.7454z" Stroke="#007fff" Aspect="Fill" Fill="#303f9f"/>
+    
+    </Grid>
+
+</ContentPage>
