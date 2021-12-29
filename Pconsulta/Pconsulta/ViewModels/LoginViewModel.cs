@@ -1,14 +1,8 @@
-﻿ 
+﻿
 using FreshMvvm;
-using Newtonsoft.Json;
-using Pconsulta.Interfaces;
 using Pconsulta.Models;
 using Pconsulta.ViewModels;
-using Refit;
 using System;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -49,7 +43,7 @@ namespace Pconsulta.PageModels
                         Loading = true;
 
                     // var result = await loginApi.PostLoginAsync(loginCredential);
-                    var result = new LoginResponseModel() { nombre = "Carlos Gonzalez" };
+                        var result = new LoginResponseModel() { nombre = "Carlos Gonzalez" };
                         await CoreMethods.PushPageModel<PrincipalMenuViewModel>(result);
                         Loading = false;
 
@@ -58,14 +52,14 @@ namespace Pconsulta.PageModels
                     {
                         Console.WriteLine("mensaje de error: "+e.Message.ToString());
                         Loading = false;
-                        Application.Current.MainPage.DisplayAlert("Alerta", "Usuario o contraseña incorrectas", "ok");
+                    await Application.Current.MainPage.DisplayAlert("Alerta", "Usuario o contraseña incorrectas", "ok");
                     }
 
                 }
                 else
                 {
                     Loading = false;
-                    Application.Current.MainPage.DisplayAlert("Alerta", "El correo y la contraseña no pueden ser vacios", "ok");
+                    await Application.Current.MainPage.DisplayAlert("Alerta", "El correo y la contraseña no pueden ser vacios", "ok");
                 }
         });
 

@@ -4,7 +4,7 @@
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
 
-  <style name="SplashTheme" parent="Theme.AppCompat.Light" BackgroundColor="@color/colorSplash">
+  <style name="SplashTheme" parent="Theme.AppCompat.Light" BackgroundColor="@color/launcher_background">
     <item name="android:windowBackground">@drawable/splash_screen</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>

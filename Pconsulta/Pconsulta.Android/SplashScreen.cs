@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Pconsulta.Droid
 {
-    [Activity(Label = "Punto Consulta", Theme ="@style/SplashTheme", 
+    [Activity(Label = "Votaciones Sabaneta", Theme ="@style/SplashTheme", 
         MainLauncher = true, NoHistory =true, ConfigurationChanges = ConfigChanges.ScreenSize)]
     public class SplashScreen : Activity
     {
@@ -20,8 +20,6 @@ namespace Pconsulta.Droid
         {
             base.OnCreate(savedInstanceState);
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
-
-            // Create your application here
         }
     }
 }

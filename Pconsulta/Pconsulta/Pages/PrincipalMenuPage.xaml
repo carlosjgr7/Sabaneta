@@ -16,7 +16,7 @@
     
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal"  >
-            <Image Source="logoBlue.png" WidthRequest="200" Margin="15,0,0,0" HorizontalOptions="FillAndExpand"/>
+            
         </StackLayout>
     </NavigationPage.TitleView>
 
@@ -27,11 +27,11 @@
                 TabStripHeight="60"
                 TabIndicatorColor="Green"
                 >
-<!--#region Movimientos-->
+<!--#region Proponente-->
             <xct:TabViewItem
                     Icon="inbox.png"
                     IconSelected="inboxIn.png"
-                    Text="Movimientos"
+                    Text="Tus Propuestas"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSizeSelected="12"
@@ -39,7 +39,7 @@
                     FontAttributes="Bold"
                 >
 
-                <StackLayout Padding="10" BackgroundColor="White" >
+                <StackLayout Padding="0" BackgroundColor="white">
                     <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -55,39 +55,54 @@
                             <Label Grid.Row="1" Grid.Column="1" Text="{Binding Time} "   TextColor="#303F9F" FontSize="12" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
                         </Grid>
                     </Frame>
-                    <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue" Padding="10">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
 
+                    <Grid>
+                        <ListView x:Name="TusPropuestas" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                        SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
+                        ItemsSource="{Binding Propuestas}" CachingStrategy="RecycleElement"
+                        SelectedItem="{Binding selectedItemComand, Mode=TwoWay}"
+                        >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
+                                            MinimumHeightRequest="100">
+                                            
+                                            <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
 
-                            <Picker Grid.Column="1" Grid.Row="0" Title="Terminal" ItemsSource="{Binding Terminales}" TextColor="DarkGray" Background="#33A925" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="100"/>
-                            <Button Grid.Column="1" Grid.Row="1" Text="Buscar" Background="#33A925" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="EndAndExpand" WidthRequest="100" />
-                            <Label Padding="5,-2,0,0" Text="Fecha Inicio" Grid.Row="0" FontSize="Micro" FontAttributes="Bold" TextColor="DarkGray"/>
-                            <Label Padding="5,-2,0,0" Text="Fecha Fin" Grid.Row="1" FontSize="Micro" FontAttributes="Bold" TextColor="DarkGray"/>
-                            <DatePicker  Grid.Row="0"  Format="d" TextColor="#303F9F"/>
-                            <DatePicker  Grid.Row="1"  Format="d" TextColor="#303F9F"/>
-                        </Grid>
-                    </Frame>
+                                                <Label Text="{Binding Title}" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
 
-                    <ListView ItemsSource="{Binding ItemList}">
-                        
-                    </ListView>
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                                    <Label Text="by" FontSize="12" TextColor="Gray"/>
+                                                    <Label Text="{Binding Description}" FontSize="12" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <ImageButton 
+                            VerticalOptions="End"
+                            HorizontalOptions="End"
+                            Padding="0,0,0,10"
+                            Source="add.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="70" 
+                            Clicked="ImageButton_Clicked_1"
+                                     
+                            />
+                    </Grid>
                 </StackLayout>
 
             </xct:TabViewItem>
-<!--#endregion Movimientos-->
-<!--#region Cierre de lote-->
+            <!--#endregion Proponente-->
+<!--#region Votante-->
             <xct:TabViewItem
-                    Icon="cremallera.png"
-                    IconSelected="cremalleraIn.png"
-                    Text="Cierre de lote"
+                    Icon="votante.png"
+                    IconSelected="votanteIn.png"
+                    Text="Votante"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSizeSelected="12"
@@ -101,13 +116,13 @@
                             Text="TabContent 2" />
                 </Grid>
             </xct:TabViewItem>
-<!--#endregion Cierre de lote-->
+            <!--#endregion Votante-->
 
-<!--#region Planes de servicios-->
+<!--#region revisor-->
             <xct:TabViewItem
                     Icon="service.png"
                     IconSelected="serviceIn.png"
-                    Text="Plan de servicio"
+                    Text="Revisor"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSize="10"
@@ -121,9 +136,10 @@
                             Text="TabContent 3" />
                 </Grid>
             </xct:TabViewItem>
-<!--#endregion Planes de servicios-->
+<!--#endregion Revisor-->
 
         </xct:TabView>
+        
     </Grid>
 
 </ContentPage>

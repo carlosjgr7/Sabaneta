@@ -29,12 +29,17 @@ namespace Pconsulta.Pages
                 if (exit)
                 {
                     Preferences.Set("myTime", DateTime.Now.ToString());
-                    this.Navigation.PopAsync();
+                    await this.Navigation.PopAsync();
                 }
                    
             });
             return true;
           
+        }
+
+        private void ImageButton_Clicked_1(object sender, EventArgs e)
+        {
+            this.DisplayAlert("Cerrar sesión", "¿Esta seguro que desea salir de la aplicación Punto Consulta?", "Sí", "No");
         }
     }
 }

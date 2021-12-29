@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="Pconsulta.Pages.ViewItemPage">
+
+   
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"  >
+
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <Grid>
+        <xct:TabView
+                TabStripPlacement="Top"
+                TabStripBackgroundColor="#ECEEFF"
+                TabStripHeight="60"
+                TabIndicatorColor="Green"
+                >
+           
+            <!--#region Informacion-->
+            <xct:TabViewItem
+                    Icon="information.png"
+                    IconSelected="informationIn.png"
+                    Text="Información"
+                    TextColor="Gray"
+                    TextColorSelected="#303F9F"
+                    FontSizeSelected="12"
+                    FontSize="10"
+                    FontAttributes="Bold">
+
+                <ScrollView>
+                    <StackLayout BackgroundColor="White"
+                             Padding="10,20,10,10">
+                        <Label  TextColor="black"
+                            HorizontalOptions="StartAndExpand"
+                            FontSize="Title"     
+                            Text="{Binding Propuestas.Title}" />
+                        <Label  TextColor="black"
+                            HorizontalOptions="StartAndExpand"
+                            FontSize="Default"     
+                            Text="{Binding Propuestas.Description}" />
+                        <BoxView BackgroundColor="LightGray" HeightRequest="2"/>
+                    </StackLayout>
+
+                </ScrollView>
+                
+            </xct:TabViewItem>
+            <!--#endregion Informacion-->
+
+            <!--#region Documentos-->
+            <xct:TabViewItem
+                    Icon="documents.png"
+                    IconSelected="documentsIn.png"
+                    Text="Documentos"
+                    TextColor="Gray"
+                    TextColorSelected="#303F9F"
+                    FontSize="10"
+                    FontSizeSelected="12"
+                    FontAttributes="Bold">
+                <StackLayout Orientation="Vertical" BackgroundColor="White" Padding="10,20,10,0">
+
+                    <StackLayout Orientation="Horizontal">
+                        
+                        <ImageButton 
+                            HorizontalOptions="Start"
+                            Source="img.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="40"           
+                         />
+                        <Button
+                            HorizontalOptions="Start"
+                            BackgroundColor="#007f39"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            Text="Ver"  
+                            Command="{Binding ToViewImagePageCommand}"
+                       />
+                        
+                        
+                        <ImageButton 
+                            HorizontalOptions="EndAndExpand"
+                            Source="documents.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="40"                
+                         />
+                        <Button
+                            HorizontalOptions="End"
+                            BackgroundColor="#007f39"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            Text="Ver"  
+                            Command="{Binding ReadPdfCommand}"
+                       />
+                    </StackLayout>
+                    
+                    
+                    <StackLayout Orientation="Horizontal">
+                        <ImageButton 
+                            HorizontalOptions="Start"
+                            Source="img.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="40"     
+                            
+                         />
+                        <Button
+                            HorizontalOptions="StartAndExpand"
+                            BackgroundColor="#007f39"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            Text="Ver"  
+                            Command="{Binding ToViewImagePageCommand}"
+                       />
+                    </StackLayout>
+                  
+                </StackLayout>
+                
+            </xct:TabViewItem>
+            <!--#endregion Documentos-->
+
+        </xct:TabView>
+
+    </Grid>
+
+</ContentPage>
