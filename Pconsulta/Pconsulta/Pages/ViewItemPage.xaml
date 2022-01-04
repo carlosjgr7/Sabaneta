@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="Pconsulta.Pages.ViewItemPage">
+             x:Class="Pconsulta.Pages.ViewItemPage"
+             BackgroundColor="{AppThemeBinding Light='white', Dark='white'}"
+>
 
    
     <NavigationPage.TitleView>
@@ -22,26 +24,64 @@
             <!--#region Informacion-->
             <xct:TabViewItem
                     Icon="information.png"
-                    IconSelected="informationIn.png"
+                    IconSelected="information.png"
                     Text="Información"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSizeSelected="12"
                     FontSize="10"
-                    FontAttributes="Bold">
+                    FontAttributes="Bold"
+                    
+                >
 
                 <ScrollView>
-                    <StackLayout BackgroundColor="White"
+                    <StackLayout
                              Padding="10,20,10,10">
                         <Label  TextColor="black"
                             HorizontalOptions="StartAndExpand"
-                            FontSize="Title"     
-                            Text="{Binding Propuestas.Title}" />
+                            FontSize="24"     
+                            Text="{Binding Propuestas.Title}"
+                                />
                         <Label  TextColor="black"
                             HorizontalOptions="StartAndExpand"
-                            FontSize="Default"     
+                            FontSize="14"     
                             Text="{Binding Propuestas.Description}" />
                         <BoxView BackgroundColor="LightGray" HeightRequest="2"/>
+
+
+
+                        <StackLayout  IsVisible="{Binding Votante}" Margin="0,50,0,0" Orientation="Vertical" >
+                            <ImageButton
+                                    
+                                    Source="{Binding ImageVotation}" 
+                                    HeightRequest="100"
+                                    WidthRequest="100"
+                                    VerticalOptions="EndAndExpand" 
+                                    HorizontalOptions="CenterAndExpand"
+                                    BackgroundColor="transparent"
+                                    Command="{Binding VotationCommand}"
+                                    />
+                        </StackLayout>
+
+                        <StackLayout   IsVisible="{Binding Revisor}" Margin="0,50,0,0" Orientation="Horizontal" >
+                            <Button
+                                Text="Aprobar"
+                                BackgroundColor="Green"
+                                CornerRadius="8"
+                                WidthRequest="150"
+                                HorizontalOptions="CenterAndExpand"
+                                    />
+                            <Button
+                                Text="rechazar"
+                                BackgroundColor="red"
+                                CornerRadius="8"
+                                WidthRequest="150"
+                                HorizontalOptions="CenterAndExpand"
+
+                                    />
+                        </StackLayout>
+
+
                     </StackLayout>
 
                 </ScrollView>
@@ -52,17 +92,15 @@
             <!--#region Documentos-->
             <xct:TabViewItem
                     Icon="documents.png"
-                    IconSelected="documentsIn.png"
+                    IconSelected="documents.png"
                     Text="Documentos"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSize="10"
                     FontSizeSelected="12"
                     FontAttributes="Bold">
-                <StackLayout Orientation="Vertical" BackgroundColor="White" Padding="10,20,10,0">
-
+                <StackLayout Orientation="Vertical" Padding="10,20,10,0">
                     <StackLayout Orientation="Horizontal">
-                        
                         <ImageButton 
                             HorizontalOptions="Start"
                             Source="img.png"
@@ -77,8 +115,8 @@
                             Text="Ver"  
                             Command="{Binding ToViewImagePageCommand}"
                        />
-                        
-                        
+
+
                         <ImageButton 
                             HorizontalOptions="EndAndExpand"
                             Source="documents.png"
@@ -113,7 +151,8 @@
                             Command="{Binding ToViewImagePageCommand}"
                        />
                     </StackLayout>
-                  
+                    <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading}"  VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
+
                 </StackLayout>
                 
             </xct:TabViewItem>

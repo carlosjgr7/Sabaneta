@@ -203,4 +203,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\img.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\dislike.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\likeIn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\like.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\dislikeIn.png" />
+  </ItemGroup>
 </Project>

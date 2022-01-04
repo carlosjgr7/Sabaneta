@@ -24,7 +24,7 @@ namespace Pconsulta.Pages
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var exit = await this.DisplayAlert("Cerrar sesión", "¿Esta seguro que desea salir de la aplicación Punto Consulta?", "Sí", "No");
+                var exit = await this.DisplayAlert("Cerrar sesión", "¿Esta seguro que desea salir de la aplicación?", "Sí", "No");
 
                 if (exit)
                 {
@@ -39,7 +39,7 @@ namespace Pconsulta.Pages
 
         private void ImageButton_Clicked_1(object sender, EventArgs e)
         {
-            this.DisplayAlert("Cerrar sesión", "¿Esta seguro que desea salir de la aplicación Punto Consulta?", "Sí", "No");
+            this.DisplayAlert("Nueva Propuesta", "Servicio desactivado por carga a tiendas", "ok");
         }
     }
 }

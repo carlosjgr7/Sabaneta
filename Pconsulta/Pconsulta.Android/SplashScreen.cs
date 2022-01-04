@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Pconsulta.Droid
 {
-    [Activity(Label = "Votaciones Sabaneta", Theme ="@style/SplashTheme", 
+    [Activity(Label = "Mi Proyecto Participativo Sabaneta", Theme ="@style/SplashTheme", 
         MainLauncher = true, NoHistory =true, ConfigurationChanges = ConfigChanges.ScreenSize)]
     public class SplashScreen : Activity
     {

@@ -14,90 +14,180 @@ namespace Pconsulta.ViewModels
     public class PrincipalMenuViewModel : FreshBasePageModel
     {
         public LoginResponseModel PersonData { get; set; }
-        public ObservableCollection<Propuesta> propuestas { get; set; } = new ObservableCollection<Propuesta>()
+        private ObservableCollection<Propuesta> propuestas { get; set; } = new ObservableCollection<Propuesta>()
         {
             new Propuesta
             {
-                Title = "propuesta test 1",
+                Title = "Propuesta test 1",
+                Description ="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            }
+        }; 
+        private ObservableCollection<Propuesta> votantes { get; set; } = new ObservableCollection<Propuesta>()
+        {
+            new Propuesta
+            {
+                Title = "Propuesta test 1",
                 Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             },            
             new Propuesta
             {
-                Title = "propuesta test 2",
+                Title = "Propuesta test 2",
                 Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             },
             new Propuesta
             {
-                Title = "propuesta test 3",
+                Title = "Propuesta test 3",
                 Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             },
             new Propuesta
             {
-                Title = "propuesta test 4",
+                Title = "Propuesta test 4",
                 Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             },
             new Propuesta
             {
-                Title = "propuesta test 5",
+                Title = "Propuesta test 5",
+                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            },
+        };  
+        private ObservableCollection<Propuesta> revisor { get; set; } = new ObservableCollection<Propuesta>()
+        {
+            new Propuesta
+            {
+                Title = "Propuesta test 1",
+                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            },            
+            new Propuesta
+            {
+                Title = "Propuesta test 2",
+                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            },
+            new Propuesta
+            {
+                Title = "Propuesta test 3",
+                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            },
+            new Propuesta
+            {
+                Title = "Propuesta test 4",
+                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            },
+            new Propuesta
+            {
+                Title = "Propuesta test 5",
                 Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             },
         };
-
         public override void Init(object initData = null)
         {
-            if (initData!=null)
-            PersonData = initData as LoginResponseModel;
+            if (initData != null)
+                PersonData = initData as LoginResponseModel;
         }
-
-        public Propuesta itemselect { get; set; }
-
-        public Propuesta selectedItemComand
+        public Propuesta itemselectProp { get; set; }
+        public Propuesta itemselectvotante { get; set; }
+        public Propuesta itemselectrevisor { get; set; }
+        public Propuesta selectedItemComandProp
         { 
-            get => itemselect;
+            get => itemselectProp;
             set
             {
-                itemselect = value;
-                RaisePropertyChanged(nameof(selectedItemComand));
-                if (itemselect != null)
+                itemselectProp = value;
+                RaisePropertyChanged(nameof(selectedItemComandProp));
+                if (itemselectProp != null)
                 {
-                    toViewPage(itemselect);
+                    toViewPage(itemselectProp, 0);
                 }
 
             }
 
         }
-
-        private async void toViewPage(Propuesta itemselect)
+        public Propuesta selectedItemComandRev
         {
-            
-            await CoreMethods.PushPageModel<ViewItemViewModel>(itemselect);
-            selectedItemComand = null;
+            get => itemselectrevisor;
+            set
+            {
+                itemselectrevisor = value;
+                RaisePropertyChanged(nameof(selectedItemComandRev));
+                if (itemselectrevisor != null)
+                {
+                    toViewPage(itemselectrevisor, 1);
+                }
+
+            }
+
         }
+        public Propuesta selectedItemComandVot
+        {
+            get => itemselectvotante;
+            set
+            {
+                itemselectvotante = value;
+                RaisePropertyChanged(nameof(selectedItemComandVot));
+                if (itemselectvotante != null)
+                {
+                    toViewPage(itemselectvotante, 2);
+                }
 
+            }
 
-
-
-
+        }
+        private async void toViewPage(Propuesta itemselect,int status)
+        {
+            PropuestaEstatus propuestaEstatus = new PropuestaEstatus()
+            {
+                propuesta = itemselect,
+                staus = status
+            };         
+            await CoreMethods.PushPageModel<ViewItemViewModel>(propuestaEstatus);
+            selectedItemComandProp = null;
+            selectedItemComandRev = null;
+            selectedItemComandVot = null;
+        }
+        public ObservableCollection<Propuesta> Propuestas
+        {
+            get => propuestas;
+            set
+            {
+                propuestas = value;
+                RaisePropertyChanged(nameof(Propuesta));
+            }
+        }         
+        public ObservableCollection<Propuesta> Votante
+        {
+            get => votantes;
+            set
+            {
+                votantes = value;
+                RaisePropertyChanged(nameof(Votante));
+            }
+        }    
+        public ObservableCollection<Propuesta> Revisor
+        {
+            get => revisor;
+            set
+            {
+                revisor = value;
+                RaisePropertyChanged(nameof(Revisor));
+            }
+        }
+       
         #region "Toolbar"
-        private string _toolbarName { get; } = "Cerrar Sesión";
-        public string ToolbarName
-        {
-            get => _toolbarName;
-        }
+
         public Command Logout => new Command(async () =>
         {
-            Time = DateTime.Now.ToString();
             await CoreMethods.PushPageModel<LoginViewModel>();
+        });
+        
+        public Command toChangePassPage => new Command(async () =>
+        {
+            await CoreMethods.PushPageModel<ChangePassView>();
         });
 
 
 
 
         #endregion
-
-        #region "Movimientos_Tab"
-
-            
+        #region "time"
         const string _time = "myTime";
 
         public string Time
@@ -109,28 +199,9 @@ namespace Pconsulta.ViewModels
                 RaisePropertyChanged(nameof(Time));
             }
         }
-
-        public ObservableCollection<Propuesta> Propuestas
-        {
-            get => propuestas;
-            set
-            {
-                propuestas = value;
-                RaisePropertyChanged(nameof(Propuesta));
-            }
-        }
-
         #endregion
-        #region "CierreLote_Tab"
 
 
-
-        #endregion
-        #region "Services_Tab"
-
-
-
-        #endregion
 
     }
 

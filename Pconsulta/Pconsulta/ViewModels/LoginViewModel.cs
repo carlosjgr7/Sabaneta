@@ -43,7 +43,7 @@ namespace Pconsulta.PageModels
                         Loading = true;
 
                     // var result = await loginApi.PostLoginAsync(loginCredential);
-                        var result = new LoginResponseModel() { nombre = "Carlos Gonzalez" };
+                        var result = new LoginResponseModel() { nombre = "Carlos Gonzalez", nombreVot = "Propuestas Q1 2022" };
                         await CoreMethods.PushPageModel<PrincipalMenuViewModel>(result);
                         Loading = false;
 
@@ -62,6 +62,12 @@ namespace Pconsulta.PageModels
                     await Application.Current.MainPage.DisplayAlert("Alerta", "El correo y la contraseña no pueden ser vacios", "ok");
                 }
         });
+
+        public Command ForgotPasswordCommand => new Command(async () =>
+        {
+            await CoreMethods.PushPageModel<forgotPass>();
+        });
+
 
 
         public string User

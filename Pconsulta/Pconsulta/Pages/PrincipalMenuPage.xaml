@@ -3,14 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="Pconsulta.Pages.PrincipalMenuPage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             BackgroundColor="{AppThemeBinding Light='white', Dark='white'}"
+
             >
-    <ContentPage.ToolbarItems>
+    
+    <ContentPage.ToolbarItems >
+
+        <ToolbarItem Text="{Binding PersonData.nombre}" Priority="0" Order="Primary" />
+
+        <ToolbarItem
+            Text="Cambio de contraseña"
+            Command="{Binding toChangePassPage}"
+            Priority="1"
+            Order="Secondary"
+            />
+        
         <ToolbarItem 
                 
-                 Text="{Binding ToolbarName}"    
+                 Text="Cerrar Sesión"    
                  Icon="cerrarSesion.png"
                  Order="Secondary"
-                 Priority="1" 
+                 Priority="2" 
                  Command="{Binding Logout}"/>
     </ContentPage.ToolbarItems>
     
@@ -30,51 +43,41 @@
 <!--#region Proponente-->
             <xct:TabViewItem
                     Icon="inbox.png"
-                    IconSelected="inboxIn.png"
+                    IconSelected="inbox.png"
                     Text="Tus Propuestas"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSizeSelected="12"
                     FontSize="10"
                     FontAttributes="Bold"
+                    
                 >
 
-                <StackLayout Padding="0" BackgroundColor="white">
+                <StackLayout Padding="0" >
                     <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0"  Text="{Binding PersonData.nombre} " TextColor="#303F9F" FontSize="18" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Start"/>
-                            <Label Grid.Row="1" Grid.Column="0" Text="Ultima Conexion: " TextColor="#303F9F" FontSize="14" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Time} "   TextColor="#303F9F" FontSize="12" FontAttributes="Bold" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
-                        </Grid>
+                        <StackLayout>
+ 
+                              <Label  Text="{Binding PersonData.nombreVot}"  TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
                     </Frame>
-
-                    <Grid>
-                        <ListView x:Name="TusPropuestas" HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                    <Grid >
+                        <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
                         SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
                         ItemsSource="{Binding Propuestas}" CachingStrategy="RecycleElement"
-                        SelectedItem="{Binding selectedItemComand, Mode=TwoWay}"
+                        SelectedItem="{Binding selectedItemComandProp, Mode=TwoWay}"
                         >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
                                         <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
                                             MinimumHeightRequest="100">
-                                            
+
                                             <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
 
-                                                <Label Text="{Binding Title}" FontSize="18" TextColor="Black" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
 
                                                 <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                                                    <Label Text="by" FontSize="12" TextColor="Gray"/>
-                                                    <Label Text="{Binding Description}" FontSize="12" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+                                                    <Label Text="{Binding Description}" FontSize="14" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="10" />
 
                                                 </StackLayout>
                                             </StackLayout>
@@ -86,7 +89,7 @@
                         <ImageButton 
                             VerticalOptions="End"
                             HorizontalOptions="End"
-                            Padding="0,0,0,10"
+                            Padding="0,0,20,30"
                             Source="add.png"
                             BackgroundColor="Transparent"
                             HeightRequest="70" 
@@ -101,40 +104,96 @@
 <!--#region Votante-->
             <xct:TabViewItem
                     Icon="votante.png"
-                    IconSelected="votanteIn.png"
+                    IconSelected="votante.png"
                     Text="Votante"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSizeSelected="12"
                     FontSize="10"
                     FontAttributes="Bold">
-                
-                <Grid BackgroundColor="White">
-                    <Label  TextColor="black"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Text="TabContent 2" />
-                </Grid>
+
+                <StackLayout Padding="0" BackgroundColor="white">
+                    <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
+                        <StackLayout>
+        
+                           <Label Text="{Binding PersonData.nombreVot} "   TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Grid >
+                        <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                        SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
+                        ItemsSource="{Binding Votante}" CachingStrategy="RecycleElement"
+                        SelectedItem="{Binding selectedItemComandVot, Mode=TwoWay}"
+                        >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
+                                            MinimumHeightRequest="100">
+
+                                            <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
+
+                                                <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
+
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                                    <Label Text="{Binding Description}" FontSize="14" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </StackLayout>
             </xct:TabViewItem>
             <!--#endregion Votante-->
 
 <!--#region revisor-->
             <xct:TabViewItem
                     Icon="service.png"
-                    IconSelected="serviceIn.png"
+                    IconSelected="service.png"
                     Text="Revisor"
                     TextColor="Gray"
                     TextColorSelected="#303F9F"
                     FontSize="10"
                     FontSizeSelected="12"
                     FontAttributes="Bold">
-                <Grid BackgroundColor="White">
-                    <Label    
-                            TextColor="black"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Text="TabContent 3" />
-                </Grid>
+
+                <StackLayout Padding="0" BackgroundColor="white">
+                    <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
+                        <StackLayout>
+                            <Label  Text="{Binding PersonData.nombreVot} "   TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </Frame>
+                    <Grid BackgroundColor="White">
+                        <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                        SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
+                        ItemsSource="{Binding Revisor}" CachingStrategy="RecycleElement"
+                        SelectedItem="{Binding selectedItemComandRev, Mode=TwoWay}"
+                        >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
+                                            MinimumHeightRequest="100">
+                                            <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
+
+                                                <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                                    <Label Text="{Binding Description}" FontSize="12" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </StackLayout>
             </xct:TabViewItem>
 <!--#endregion Revisor-->
 

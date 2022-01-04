@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Pconsulta.Controls"
+             x:Class="Pconsulta.Pages.ChangePassView"  BackgroundColor="{AppThemeBinding Light='white', Dark='white'}"
+             >
+    <ContentPage.Content>
+
+        <StackLayout Padding="10,0"  VerticalOptions="CenterAndExpand">
+
+            <Image
+            VerticalOptions="Center"
+            HorizontalOptions="Center"
+            Source="splashScreen.png"
+            />
+
+            <Label 
+                Text="Por favor ingrse su nueva contraseña" 
+                TextColor="gray" 
+                HorizontalTextAlignment="Center" 
+            />
+
+            <controls:StandardEntry
+                Text="{Binding Pass}"
+                HeightRequest="50"
+                Background="beige"
+                BorderColor="#007fff"
+                BorderThickness="1"
+                CornerRadius="8"
+                TextColor="#3449AE"
+                Placeholder="Contraseña"
+                PlaceholderColor="#8491C8"
+                IsPassword="True"
+            />
+            
+            <controls:StandardEntry
+                Text="{Binding ConfirmPass}"
+                HeightRequest="50"
+                Background="beige"
+                BorderColor="#007fff"
+                BorderThickness="1"
+                CornerRadius="8"
+                TextColor="#3449AE"
+                Placeholder="Repetir Contraseña"
+                PlaceholderColor="#8491C8"
+                IsPassword="True"
+            />
+
+            <Button
+                Grid.Row="7"
+                Margin="20,0"
+                BackgroundColor="#007f39"
+                CornerRadius="8"
+                Text="Solicitar Contraseña"  
+                Command="{Binding ChangePass}"
+           />
+            <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading }"  />
+
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
