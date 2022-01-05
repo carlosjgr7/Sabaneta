@@ -170,7 +170,40 @@ namespace Pconsulta.ViewModels
                 RaisePropertyChanged(nameof(Revisor));
             }
         }
-       
+        public bool propuestaView { get; set; } = false;
+        public bool votanteView { get; set; } = true;
+        public bool revisorView { get; set; } = false;
+
+        public bool PropuestaView
+        {
+            get => propuestaView;
+            set
+            {
+                propuestaView = value;
+                RaisePropertyChanged(nameof(PropuestaView));
+            }
+        } 
+        public bool VotanteView
+        {
+            get => votanteView;
+            set
+            {
+                propuestaView = value;
+                RaisePropertyChanged(nameof(VotanteView));
+            }
+        }
+        public bool RevisorView
+        {
+            get => revisorView;
+            set
+            {
+                propuestaView = value;
+                RaisePropertyChanged(nameof(RevisorView));
+            }
+        }
+
+
+
         #region "Toolbar"
 
         public Command Logout => new Command(async () =>

@@ -52,8 +52,19 @@
                     FontAttributes="Bold"
                     
                 >
+                <StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="true">
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout"
+                                         Binding="{Binding Source={x:Reference ProponenteTab}, Path=IsVisible}" Value="true"
+                                         >
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Label TextColor="Gray" Text="No tienes permiso a esta seccion"/>
+                    </StackLayout>
 
-                <StackLayout Padding="0" >
+                    <StackLayout x:Name="ProponenteTab" IsVisible="{Binding PropuestaView}" Padding="0" >
                     <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
                         <StackLayout>
  
@@ -98,6 +109,7 @@
                             />
                     </Grid>
                 </StackLayout>
+                </StackLayout>
 
             </xct:TabViewItem>
             <!--#endregion Proponente-->
@@ -112,41 +124,54 @@
                     FontSize="10"
                     FontAttributes="Bold">
 
-                <StackLayout Padding="0" BackgroundColor="white">
-                    <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
-                        <StackLayout>
-        
-                           <Label Text="{Binding PersonData.nombreVot} "   TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                        </StackLayout>
-                    </Frame>
+                <StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="true">
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout"
+                                         Binding="{Binding Source={x:Reference VotanteTab}, Path=IsVisible}" Value="true"
+                                         >
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Label TextColor="Gray" Text="No tienes permiso a esta seccion"/>
+                    </StackLayout>
 
-                    <Grid >
-                        <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                    <StackLayout Padding="0" BackgroundColor="white" x:Name="VotanteTab" IsVisible="{Binding VotanteView}">
+                        <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
+                            <StackLayout>
+
+                                <Label Text="{Binding PersonData.nombreVot} "   TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </Frame>
+
+                        <Grid >
+                            <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
                         SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
                         ItemsSource="{Binding Votante}" CachingStrategy="RecycleElement"
                         SelectedItem="{Binding selectedItemComandVot, Mode=TwoWay}"
                         >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
                                             MinimumHeightRequest="100">
 
-                                            <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
+                                                <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
 
-                                                <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
 
-                                                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                                                    <Label Text="{Binding Description}" FontSize="14" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                                        <Label Text="{Binding Description}" FontSize="14" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
 
+                                                    </StackLayout>
                                                 </StackLayout>
                                             </StackLayout>
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </StackLayout>
                 </StackLayout>
             </xct:TabViewItem>
             <!--#endregion Votante-->
@@ -162,37 +187,50 @@
                     FontSizeSelected="12"
                     FontAttributes="Bold">
 
-                <StackLayout Padding="0" BackgroundColor="white">
-                    <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
-                        <StackLayout>
-                            <Label  Text="{Binding PersonData.nombreVot} "   TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                        </StackLayout>
-                    </Frame>
-                    <Grid BackgroundColor="White">
-                        <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                <StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="true">
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout"
+                                         Binding="{Binding Source={x:Reference RevisorTab}, Path=IsVisible}" Value="true"
+                                         >
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+                        </StackLayout.Triggers>
+                        <Label TextColor="Gray" Text="No tienes permiso a esta seccion"/>
+                    </StackLayout>
+
+                    <StackLayout Padding="0" BackgroundColor="white" x:Name="RevisorTab" IsVisible="{Binding RevisorView}">
+                        <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
+                            <StackLayout>
+                                <Label  Text="{Binding PersonData.nombreVot} "   TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            </StackLayout>
+                        </Frame>
+                        <Grid BackgroundColor="White">
+                            <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
                         SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
                         ItemsSource="{Binding Revisor}" CachingStrategy="RecycleElement"
                         SelectedItem="{Binding selectedItemComandRev, Mode=TwoWay}"
                         >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
                                             MinimumHeightRequest="100">
-                                            <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
+                                                <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
 
-                                                <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
-                                                <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
-                                                    <Label Text="{Binding Description}" FontSize="12" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+                                                    <Label Text="{Binding Title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
+                                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                                        <Label Text="{Binding Description}" FontSize="12" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
 
+                                                    </StackLayout>
                                                 </StackLayout>
                                             </StackLayout>
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Grid>
+                    </StackLayout>
                 </StackLayout>
             </xct:TabViewItem>
 <!--#endregion Revisor-->
