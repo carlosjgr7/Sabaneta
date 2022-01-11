@@ -1,7 +1,10 @@
 ﻿
 using FreshMvvm;
-using Pconsulta.Models;
+using Pconsulta.Interfaces;
+using Pconsulta.Models.Login;
+using Pconsulta.Utilities;
 using Pconsulta.ViewModels;
+using Refit;
 using System;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -10,6 +13,7 @@ namespace Pconsulta.PageModels
 {
     public class LoginViewModel : FreshBasePageModel
     {
+
         public string loginBtn { get; set; } = "Iniciar Sesión";
         private bool _isloading { get; set; } = false;
 
@@ -17,6 +21,7 @@ namespace Pconsulta.PageModels
         //private string _pass = "Tranred03.";
         private string _user { get; set; } = Preferences.Get("emailUser","");
         private string _pass { get; set; } = Preferences.Get("passUser", "");
+        
 
         public Command toMenuPageCommand => new Command(async () =>
         {
@@ -26,9 +31,8 @@ namespace Pconsulta.PageModels
                 Preferences.Set("emailUser", _user);
                 Preferences.Set("passUser", _pass);
             }
-              // var loginApi = RestService.For<ILoginService>("http://192.168.253.29:443/api");
-              //var loginApi = RestService.For<ILoginService>("https://api.1000pagos.com:9000/api");
-              //var loginApi = RestService.For<ILoginService>("https://pokeapi.co/api/v2");
+                var loginApi = RestService.For<ILoginService>(StaticValues.baseUrl);
+
 
                 LoginCredentialModel loginCredential = new LoginCredentialModel()
                 {
@@ -42,8 +46,8 @@ namespace Pconsulta.PageModels
                     {
                         Loading = true;
 
-                    // var result = await loginApi.PostLoginAsync(loginCredential);
-                        var result = new LoginResponseModel() { nombre = "Carlos Gonzalez", nombreVot = "Propuestas Q1 2022" };
+                        var result = await loginApi.PostLoginAsync(loginCredential);
+
                         await CoreMethods.PushPageModel<PrincipalMenuViewModel>(result);
                         Loading = false;
 
@@ -52,6 +56,7 @@ namespace Pconsulta.PageModels
                     {
                         Console.WriteLine("mensaje de error: "+e.Message.ToString());
                         Loading = false;
+
                     await Application.Current.MainPage.DisplayAlert("Alerta", "Usuario o contraseña incorrectas", "ok");
                     }
 

@@ -1,92 +1,167 @@
 ﻿using FreshMvvm;
 using Pconsulta.Interfaces;
 using Pconsulta.Models;
+using Pconsulta.Models.Election;
+using Pconsulta.Models.Login;
 using Pconsulta.PageModels;
+using Pconsulta.Utilities;
+using PropertyChanged;
 using Refit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Pconsulta.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class PrincipalMenuViewModel : FreshBasePageModel
     {
-        public LoginResponseModel PersonData { get; set; }
-        private ObservableCollection<Propuesta> propuestas { get; set; } = new ObservableCollection<Propuesta>()
+        public LoginResponse PersonData { get; set; }
+        public ObservableCollection<Models.Election.Option> propuestas { get; set; } = new ObservableCollection<Models.Election.Option>()
         {
-            new Propuesta
-            {
-                Title = "Propuesta test 1",
-                Description ="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            }
+           
         }; 
-        private ObservableCollection<Propuesta> votantes { get; set; } = new ObservableCollection<Propuesta>()
+        public ObservableCollection<Models.Election.Option> votantes { get; set; } = new ObservableCollection<Models.Election.Option>()
         {
-            new Propuesta
-            {
-                Title = "Propuesta test 1",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            },            
-            new Propuesta
-            {
-                Title = "Propuesta test 2",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
-            new Propuesta
-            {
-                Title = "Propuesta test 3",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
-            new Propuesta
-            {
-                Title = "Propuesta test 4",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
-            new Propuesta
-            {
-                Title = "Propuesta test 5",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
+          
         };  
-        private ObservableCollection<Propuesta> revisor { get; set; } = new ObservableCollection<Propuesta>()
+        public ObservableCollection<Models.Election.Option> revisor { get; set; } = new ObservableCollection<Models.Election.Option>()
         {
-            new Propuesta
-            {
-                Title = "Propuesta test 1",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-            },            
-            new Propuesta
-            {
-                Title = "Propuesta test 2",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
-            new Propuesta
-            {
-                Title = "Propuesta test 3",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
-            new Propuesta
-            {
-                Title = "Propuesta test 4",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
-            new Propuesta
-            {
-                Title = "Propuesta test 5",
-                Description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-            },
+            
         };
+        private int yourVote;
+
+
         public override void Init(object initData = null)
         {
             if (initData != null)
-                PersonData = initData as LoginResponseModel;
+            {
+                PersonData = initData as LoginResponse;
+               
+
+                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.Proponente)))
+                {
+                    Models.Election.Option option = new Models.Election.Option()
+                    {
+                        title = PersonData.option.title,
+                        descript = PersonData.option.descript,
+                        id = PersonData.option.id,
+                        status = PersonData.option.status,
+                        votes = PersonData.option.votes,
+                        creator = PersonData.option.creator
+                    };
+                    if(option.title!=null)
+                    propuestas.Add(option);
+                    propuestaView = true;
+                }
+                else
+                {
+                    propuestaView = false;
+                }
+
+
+                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.Votante)))
+                {
+
+                    Task.Run(async () => await LoadVotanteList());
+                    votanteView = true;
+                    if(PersonData.vote.id.ToString() != null && PersonData.vote.id.ToString() != "")
+                    {
+                        yourVote = PersonData.vote.id;
+
+                    }
+                }
+                else
+                {
+                    votanteView = false;
+                }
+
+
+                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.Revisor)))
+                {
+                    Task.Run(async () => await LoadRevisorList());
+                    revisorView = true;
+                }
+                else
+                {
+                    revisorView = false;
+                }
+            }
         }
-        public Propuesta itemselectProp { get; set; }
-        public Propuesta itemselectvotante { get; set; }
-        public Propuesta itemselectrevisor { get; set; }
-        public Propuesta selectedItemComandProp
+
+        public override void ReverseInit(object returnedData)
+        {
+
+          var option = returnedData as PropuestaEstatus;
+            if (option.staus == 1)
+            {
+                revisor.Remove(option.propuesta);
+                votantes.Add(option.propuesta);
+            }
+
+            if(option.staus == 2)
+            {
+                if (yourVote != option.propuesta.id)
+                {
+                    foreach (var item in votantes)
+                    {
+
+                        if(item.id == yourVote)
+                        {
+                            item.votes -= 1;
+                            
+
+                        }
+                        if(item.id == option.propuesta.id)
+                        {
+                            item.votes += 1;
+                        }
+                    }
+
+                    
+                }
+                            
+                yourVote = option.propuesta.id;
+
+            }
+
+        }
+
+        private async Task LoadRevisorList()
+        {
+            var loginApi = RestService.For<IOptionServices>(StaticValues.baseUrl);
+            var result = await loginApi.GetElection(PersonData.election.id.ToString(), PersonData.token);
+            foreach (var op in result.info.Options)
+            {
+                if (op.status.Equals(false))
+                {
+                    revisor.Add(op);
+                }
+            }
+        }
+
+        private async Task LoadVotanteList()
+        {
+            var loginApi = RestService.For<IOptionServices>(StaticValues.baseUrl);
+            var result = await loginApi.GetElection(PersonData.election.id.ToString(), PersonData.token);
+            var vec = result.info.Options.OrderByDescending(a => a.votes);
+            foreach (var op in vec)
+            {
+                if (op.status.Equals(true))
+                {
+                    votantes.Add(op);
+                }
+            }
+        }
+
+        public Models.Election.Option itemselectProp { get; set; }
+        public Models.Election.Option itemselectvotante { get; set; }
+        public Models.Election.Option itemselectrevisor { get; set; }
+        public Models.Election.Option selectedItemComandProp
         { 
             get => itemselectProp;
             set
@@ -101,7 +176,7 @@ namespace Pconsulta.ViewModels
             }
 
         }
-        public Propuesta selectedItemComandRev
+        public Models.Election.Option selectedItemComandRev
         {
             get => itemselectrevisor;
             set
@@ -116,7 +191,7 @@ namespace Pconsulta.ViewModels
             }
 
         }
-        public Propuesta selectedItemComandVot
+        public Models.Election.Option selectedItemComandVot
         {
             get => itemselectvotante;
             set
@@ -131,76 +206,30 @@ namespace Pconsulta.ViewModels
             }
 
         }
-        private async void toViewPage(Propuesta itemselect,int status)
+        private async void toViewPage(Models.Election.Option itemselect,int status)
         {
             PropuestaEstatus propuestaEstatus = new PropuestaEstatus()
             {
                 propuesta = itemselect,
-                staus = status
-            };         
+                electionId = PersonData.election.id,
+                token = PersonData.token,
+                staus = status,
+                opcVotada = (yourVote == itemselect.id) ? true : false
+            };
+
             await CoreMethods.PushPageModel<ViewItemViewModel>(propuestaEstatus);
             selectedItemComandProp = null;
             selectedItemComandRev = null;
             selectedItemComandVot = null;
-        }
-        public ObservableCollection<Propuesta> Propuestas
-        {
-            get => propuestas;
-            set
-            {
-                propuestas = value;
-                RaisePropertyChanged(nameof(Propuesta));
-            }
-        }         
-        public ObservableCollection<Propuesta> Votante
-        {
-            get => votantes;
-            set
-            {
-                votantes = value;
-                RaisePropertyChanged(nameof(Votante));
-            }
-        }    
-        public ObservableCollection<Propuesta> Revisor
-        {
-            get => revisor;
-            set
-            {
-                revisor = value;
-                RaisePropertyChanged(nameof(Revisor));
-            }
-        }
-        public bool propuestaView { get; set; } = false;
-        public bool votanteView { get; set; } = true;
-        public bool revisorView { get; set; } = false;
+        }        
+      
+        public bool propuestaView { get; set; }
+        public bool votanteView { get; set; }
+        public bool revisorView { get; set; }
 
-        public bool PropuestaView
-        {
-            get => propuestaView;
-            set
-            {
-                propuestaView = value;
-                RaisePropertyChanged(nameof(PropuestaView));
-            }
-        } 
-        public bool VotanteView
-        {
-            get => votanteView;
-            set
-            {
-                propuestaView = value;
-                RaisePropertyChanged(nameof(VotanteView));
-            }
-        }
-        public bool RevisorView
-        {
-            get => revisorView;
-            set
-            {
-                propuestaView = value;
-                RaisePropertyChanged(nameof(RevisorView));
-            }
-        }
+
+       
+       
 
 
 
@@ -214,6 +243,11 @@ namespace Pconsulta.ViewModels
         public Command toChangePassPage => new Command(async () =>
         {
             await CoreMethods.PushPageModel<ChangePassView>();
+        });
+
+        public Command MakeOptionComand => new Command(async () =>
+        {
+            await CoreMethods.PushPageModel<MakeOptionViewModel>();
         });
 
 

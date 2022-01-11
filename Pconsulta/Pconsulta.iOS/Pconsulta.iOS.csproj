@@ -215,4 +215,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\dislikeIn.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\warning.png" />
+  </ItemGroup>
 </Project>

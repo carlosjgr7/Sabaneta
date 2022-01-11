@@ -40,20 +40,20 @@
                         <Label  TextColor="black"
                             HorizontalOptions="StartAndExpand"
                             FontSize="24"     
-                            Text="{Binding Propuestas.Title}"
+                            Text="{Binding propuestas.title}"
                                 />
                         <Label  TextColor="black"
                             HorizontalOptions="StartAndExpand"
                             FontSize="14"     
-                            Text="{Binding Propuestas.Description}" />
+                            Text="{Binding propuestas.descript}" />
                         <BoxView BackgroundColor="LightGray" HeightRequest="2"/>
 
 
 
-                        <StackLayout  IsVisible="{Binding Votante}" Margin="0,50,0,0" Orientation="Vertical" >
+                        <StackLayout  IsVisible="{Binding votante}" Margin="0,50,0,0" Orientation="Vertical" >
                             <ImageButton
                                     
-                                    Source="{Binding ImageVotation}" 
+                                    Source="{Binding imageVotation}" 
                                     HeightRequest="100"
                                     WidthRequest="100"
                                     VerticalOptions="EndAndExpand" 
@@ -63,22 +63,16 @@
                                     />
                         </StackLayout>
 
-                        <StackLayout   IsVisible="{Binding Revisor}" Margin="0,50,0,0" Orientation="Horizontal" >
+                        <StackLayout   IsVisible="{Binding revisor}" Margin="0,50,0,0" Orientation="Horizontal" >
                             <Button
                                 Text="Aprobar"
                                 BackgroundColor="Green"
                                 CornerRadius="8"
                                 WidthRequest="150"
                                 HorizontalOptions="CenterAndExpand"
+                                Command="{Binding RevisorComand}"
                                     />
-                            <Button
-                                Text="rechazar"
-                                BackgroundColor="red"
-                                CornerRadius="8"
-                                WidthRequest="150"
-                                HorizontalOptions="CenterAndExpand"
-
-                                    />
+                         
                         </StackLayout>
 
 
@@ -151,7 +145,7 @@
                             Command="{Binding ToViewImagePageCommand}"
                        />
                     </StackLayout>
-                    <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading}"  VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
+                    <ActivityIndicator Color="Blue"  IsRunning="{Binding isloading}"  VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
 
                 </StackLayout>
                 

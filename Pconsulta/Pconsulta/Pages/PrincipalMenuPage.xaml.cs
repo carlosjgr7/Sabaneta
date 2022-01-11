@@ -28,7 +28,6 @@ namespace Pconsulta.Pages
 
                 if (exit)
                 {
-                    Preferences.Set("myTime", DateTime.Now.ToString());
                     await this.Navigation.PopAsync();
                 }
                    

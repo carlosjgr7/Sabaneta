@@ -1,5 +1,8 @@
-﻿namespace Pconsulta.Models
+﻿using PropertyChanged;
+
+namespace Pconsulta.Models
 {
+    [AddINotifyPropertyChangedInterface]
     public class LoginResponseModel
     {
         public bool ok { get; set; }

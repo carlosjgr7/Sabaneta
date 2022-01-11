@@ -1,5 +1,7 @@
 ﻿using FreshMvvm;
 using Pconsulta.Models;
+using Pconsulta.Models.Login;
+using Pconsulta.Models.Election;
 using Plugin.XamarinFormsSaveOpenPDFPackage;
 using System;
 using System.Collections.Generic;
@@ -8,22 +10,28 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using Xamarin.Forms;
+using Refit;
+using Pconsulta.Interfaces;
+using Pconsulta.Utilities;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using PropertyChanged;
 
 namespace Pconsulta.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     class ViewItemViewModel: FreshBasePageModel
     {
-        public Propuesta propuestas { get; set; }
+        public Models.Election.Option propuestas { get; set; }
         public string selectItem { get; set; }
         public string imageVotation { get; set; } = "like.png";
-        public bool opcVotada { get; set; } = false;
-        private bool _isloading { get; set; } = false;
-
-
-
+        public bool opcVotada { get; set; } 
+        public bool isloading { get; set; } = false;
         public bool votante { get; set; } = false;
         public bool revisor { get; set; } = false;
         private PropuestaEstatus propuestaEstatus;
+        private int electionId;
+        private string token;
 
 
         public override void Init(object initData = null)
@@ -31,95 +39,80 @@ namespace Pconsulta.ViewModels
             if (initData != null)
             {
                 propuestaEstatus = initData as PropuestaEstatus;
+                electionId = propuestaEstatus.electionId;
+                token = propuestaEstatus.token;
                 propuestas = propuestaEstatus.propuesta;
+                opcVotada = propuestaEstatus.opcVotada;
+                
+                if (opcVotada)
+                {
+                    imageVotation = "likeIn.png";
+                }
             }
            
             
             if (propuestaEstatus.staus == 1)
             {
-                Votante = false;
-                Revisor = true;
+                votante = false;
+                revisor = true;
             }
             if (propuestaEstatus.staus == 2)
             {
-                Votante = true;
-                Revisor = false;
+                votante = true;
+                revisor = false;
             }
         }
 
-        public Propuesta Propuestas
-        {
-            get => propuestas;
-            set
-            {
-                propuestas = value;
-                RaisePropertyChanged(nameof(Propuestas));
-            }
-        }
-        public bool Loading
-        {
-            get => _isloading;
-            set
-            {
-                _isloading = value;
-                RaisePropertyChanged(nameof(Loading));
-            }
-        }
-        public string ImageVotation
-        {
-            get => imageVotation;
-            set
-            {
-                imageVotation = value;
-                RaisePropertyChanged(nameof(ImageVotation));
-            }
-        }
-
-        public bool Votante
-        {
-            get => votante;
-            set
-            {
-                votante = value;
-                RaisePropertyChanged(nameof(votante));
-            }
-        }    
-        
-        public bool Revisor
-        {
-            get => revisor;
-            set
-            {
-                revisor = value;
-                RaisePropertyChanged(nameof(Revisor));
-            }
-        }
-
+ 
 
         public Command VotationCommand => new Command(async () =>
         {
-            if (!opcVotada)
+            try
             {
-                ImageVotation = "likeIn.png";
+                var msj = new msj(){ mensaje = "ok"};
+                var loginApi = RestService.For<IVoteOptions>(StaticValues.baseUrl);
+                await loginApi.PutVotation(electionId.ToString(), propuestaEstatus.propuesta.id.ToString(),msj, token);
+               
+                if (!opcVotada)
+                {
+                    imageVotation = "likeIn.png";
+                    opcVotada = true;
+                }
+
+                PreviousPageModel.ReverseInit(returnedData: propuestaEstatus);
+
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+            }
+
+           
          
         });
 
 
-        public string SelectItem
+        public Command RevisorComand => new Command(async () =>
         {
-            get => selectItem;
-            set
+            var change = new changeOptions
             {
-                selectItem = null;
-                RaisePropertyChanged(nameof(SelectItem));
-            }
+                status = true
+            };
 
-        }
+            var loginApi = RestService.For<IChangeStatus>(StaticValues.baseUrl);
+            await loginApi.PutElectionChange(propuestaEstatus.propuesta.id.ToString(), change,token);
+            
+            PreviousPageModel.ReverseInit(returnedData: propuestaEstatus);
+            await CoreMethods.PopPageModel(false);
+
+        });
+
+
 
         public Command ReadPdfCommand => new Command(async () =>
         {
-            Loading = true;
+            isloading = true;
             var httpClient = new HttpClient();
             var stream = await httpClient.GetStreamAsync("https://gerald.verslu.is/subscribe.pdf");
 
@@ -129,14 +122,14 @@ namespace Pconsulta.ViewModels
 
                 await CrossXamarinFormsSaveOpenPDFPackage.Current.SaveAndView("myFile.pdf", "application/pdf", memoryStream, PDFOpenContext.InApp);
             }
-            Loading = false;
+            isloading = false;
         });
 
         public Command ToViewImagePageCommand => new Command(async () =>
         {
-            Loading = true;
+            isloading = true;
             await CoreMethods.PushPageModel<ViewImageViewModel>("https://www.elcarrocolombiano.com/wp-content/uploads/2021/02/20210208-TOP-75-CARROS-MAS-VENDIDOS-DE-COLOMBIA-EN-ENERO-2021-01.jpg");
-            Loading = false;
+            isloading = false;
 
         });
 

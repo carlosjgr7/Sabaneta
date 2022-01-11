@@ -8,7 +8,7 @@
         <StackLayout>
             
             <Image 
-                Source="{Binding UrlImage}"
+                Source="{Binding urlImage}"
                 
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"

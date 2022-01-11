@@ -1,4 +1,4 @@
-﻿using Pconsulta.Models;
+﻿using Pconsulta.Models.Login;
 using Refit;
 using System.Threading.Tasks;
 
@@ -6,9 +6,9 @@ namespace Pconsulta.Interfaces
 {
     public interface ILoginService
     {
-        [Post("/auth/consulta")]
+        [Post("/auth/login")]
         [Headers("Content-Type: application/json")]
-        Task<LoginResponseModel> PostLoginAsync([Body] LoginCredentialModel loginCredential);
+        Task<LoginResponse> PostLoginAsync([Body] LoginCredentialModel loginCredential);
 
         
     }
