@@ -21,19 +21,14 @@ namespace Pconsulta.ViewModels
     public class PrincipalMenuViewModel : FreshBasePageModel
     {
         public LoginResponse PersonData { get; set; }
-        public ObservableCollection<Models.Election.Option> propuestas { get; set; } = new ObservableCollection<Models.Election.Option>()
-        {
-           
-        }; 
-        public ObservableCollection<Models.Election.Option> votantes { get; set; } = new ObservableCollection<Models.Election.Option>()
-        {
-          
-        };  
-        public ObservableCollection<Models.Election.Option> revisor { get; set; } = new ObservableCollection<Models.Election.Option>()
-        {
-            
-        };
+        public ObservableCollection<Models.Election.Option> propuestas { get; set; } = new ObservableCollection<Models.Election.Option>(){}; 
+        public ObservableCollection<Models.Election.Option> votantes { get; set; } = new ObservableCollection<Models.Election.Option>(){};  
+        public ObservableCollection<Models.Election.Option> revisor { get; set; } = new ObservableCollection<Models.Election.Option>(){};
         private int yourVote;
+        public bool viewbtn { get; set; } = true;
+        public string errorsmjProponente { get; set; } 
+        public string errorsmjVotante { get; set; } 
+        public string errorsmjRevisor { get; set; } 
 
 
         public override void Init(object initData = null)
@@ -41,9 +36,8 @@ namespace Pconsulta.ViewModels
             if (initData != null)
             {
                 PersonData = initData as LoginResponse;
-               
 
-                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.Proponente)))
+                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserProponente)))
                 {
                     Models.Election.Option option = new Models.Election.Option()
                     {
@@ -54,41 +48,68 @@ namespace Pconsulta.ViewModels
                         votes = PersonData.option.votes,
                         creator = PersonData.option.creator
                     };
-                    if(option.title!=null)
-                    propuestas.Add(option);
+                    
+                    if (option.title != null)
+                    {
+                        propuestas.Add(option);
+                        viewbtn = false;
+                    }
+                    
                     propuestaView = true;
+                    if(PersonData.election.status.name != StaticValues.ElecProponer)
+                    {
+                        viewbtn = false;
+                    }
                 }
                 else
                 {
                     propuestaView = false;
                 }
 
-
-                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.Votante)))
+                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserVotante)))
                 {
-
-                    Task.Run(async () => await LoadVotanteList());
-                    votanteView = true;
-                    if(PersonData.vote.id.ToString() != null && PersonData.vote.id.ToString() != "")
+                    if (PersonData.election.status.name == StaticValues.ElecVotar)
                     {
-                        yourVote = PersonData.vote.id;
+                        Task.Run(async () => await LoadVotanteList());
+                        votanteView = true;
+                        if (PersonData.vote.id.ToString() != null && PersonData.vote.id.ToString() != "")
+                        {
+                            yourVote = PersonData.vote.id;
 
+                        }
+                    }
+                    else
+                    {
+                        votanteView = false;
+                        errorsmjVotante = "La elección se encuentra en el status "+PersonData.election.status.name;
                     }
                 }
                 else
                 {
                     votanteView = false;
+                    errorsmjVotante = "No tiene permiso para esta seccion";
+
                 }
 
 
-                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.Revisor)))
+                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserRevisor)))
                 {
-                    Task.Run(async () => await LoadRevisorList());
-                    revisorView = true;
+                    if (PersonData.election.status.name == StaticValues.ElecVotar)
+                    {
+                        Task.Run(async () => await LoadRevisorList());
+                        revisorView = true;
+                    }
+                    else
+                    {
+                        revisorView = false;
+                        errorsmjRevisor = "La elección se encuentra en el status " + PersonData.election.status.name;
+                    }
                 }
                 else
                 {
                     revisorView = false;
+                    errorsmjRevisor= "No tiene permiso para esta seccion";
+
                 }
             }
         }
@@ -242,7 +263,7 @@ namespace Pconsulta.ViewModels
         
         public Command toChangePassPage => new Command(async () =>
         {
-            await CoreMethods.PushPageModel<ChangePassView>();
+            await CoreMethods.PushPageModel<ChangePassView>(PersonData.token);
         });
 
         public Command MakeOptionComand => new Command(async () =>

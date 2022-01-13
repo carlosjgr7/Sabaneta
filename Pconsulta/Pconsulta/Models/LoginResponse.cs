@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿using Pconsulta.Models.Election;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -60,6 +61,7 @@ namespace Pconsulta.Models.Login
     {
         public int id { get; set; }
         public string name { get; set; }
+        public Status status { get; set; }
         public DateTime deleteAt { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }

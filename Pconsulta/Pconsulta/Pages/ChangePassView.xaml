@@ -50,7 +50,7 @@
                 Margin="20,0"
                 BackgroundColor="#007f39"
                 CornerRadius="8"
-                Text="Solicitar Contraseña"  
+                Text="Cambiar Contraseña"  
                 Command="{Binding ChangePass}"
            />
             <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading }"  />

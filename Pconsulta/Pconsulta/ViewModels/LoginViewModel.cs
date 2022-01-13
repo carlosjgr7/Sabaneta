@@ -4,6 +4,7 @@ using Pconsulta.Interfaces;
 using Pconsulta.Models.Login;
 using Pconsulta.Utilities;
 using Pconsulta.ViewModels;
+using PropertyChanged;
 using Refit;
 using System;
 using Xamarin.Essentials;
@@ -11,16 +12,15 @@ using Xamarin.Forms;
 
 namespace Pconsulta.PageModels
 {
+    [AddINotifyPropertyChangedInterface]
     public class LoginViewModel : FreshBasePageModel
     {
 
         public string loginBtn { get; set; } = "Iniciar Sesión";
-        private bool _isloading { get; set; } = false;
+        public bool Loading { get; set; }
 
-        //private string _user = "amendoza@tranred.com.ve";
-        //private string _pass = "Tranred03.";
-        private string _user { get; set; } = Preferences.Get("emailUser","");
-        private string _pass { get; set; } = Preferences.Get("passUser", "");
+        public string User { get; set; } = Preferences.Get("emailUser","");
+        public string Pass { get; set; } = Preferences.Get("passUser", "");
         
 
         public Command toMenuPageCommand => new Command(async () =>
@@ -28,8 +28,8 @@ namespace Pconsulta.PageModels
 
             if (SwitchMe)
             {
-                Preferences.Set("emailUser", _user);
-                Preferences.Set("passUser", _pass);
+                Preferences.Set("emailUser", User);
+                Preferences.Set("passUser", Pass);
             }
                 var loginApi = RestService.For<ILoginService>(StaticValues.baseUrl);
 
@@ -44,12 +44,12 @@ namespace Pconsulta.PageModels
                 {
                     try
                     {
-                        Loading = true;
+                    Loading = true;
 
                         var result = await loginApi.PostLoginAsync(loginCredential);
 
                         await CoreMethods.PushPageModel<PrincipalMenuViewModel>(result);
-                        Loading = false;
+                    Loading = false;
 
                     }
                     catch(Exception e)
@@ -74,38 +74,6 @@ namespace Pconsulta.PageModels
         });
 
 
-
-        public string User
-        {
-            get => _user;
-            set
-            {
-                _user = value;
-                RaisePropertyChanged(nameof(User));
-
-            }
-        }
-
-        public string Pass 
-        { 
-            get => _pass;
-            set
-            {
-                _pass = value;
-                RaisePropertyChanged(nameof(Pass));
-            }
-        }
-
-        public bool Loading
-        {
-            get => _isloading;
-            set
-            {
-                _isloading = value;
-                RaisePropertyChanged(nameof(Loading));
-            }
-        } 
-        
         public bool SwitchMe
         {
             get => Preferences.Get(nameof(SwitchMe),false);

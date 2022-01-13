@@ -12,7 +12,7 @@ namespace Pconsulta.Interfaces
     public interface IVoteOptions
     {
         [Put("/elections/{election}/{option}")]
-        Task PutVotation(string election, string option,[Body] msj msj, [Header("authorization")] string token);
+        Task PutVotation(string election, string option,[Body] Dictionary<string, string> msj, [Header("authorization")] string token);
 
 
     }

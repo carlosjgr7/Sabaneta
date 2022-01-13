@@ -1,63 +1,69 @@
 ﻿using FreshMvvm;
+using Pconsulta.Interfaces;
+using Pconsulta.Utilities;
+using PropertyChanged;
+using Refit;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Pconsulta.ViewModels
 {
+    [AddINotifyPropertyChangedInterface]
     class ChangePassView : FreshBasePageModel
     {
-        public bool _loading { get; set; }
-        public string _pass { get; set; }
-        public string _confirmPass { get; set; }
+        public bool Loading { get; set; }
+        public string Pass { get; set; }
+        public string ConfirmPass { get; set; }
+        public string token { get; set; }
 
-        public string Pass
+
+
+        public override void Init(object initData)
         {
-            get => _pass;
-            set
-            {
-                _pass = value;
-
-            }
+            token = initData as string;
         }
-        
-        public string ConfirmPass
-        {
-            get => _confirmPass;
-            set
-            {
-                _confirmPass = value;
-
-            }
-        }
-        public bool Loading
-        {
-            get => _loading;
-            set
-            {
-                _loading = value;
-                RaisePropertyChanged(nameof(Loading));
-            }
-        }
-
 
 
         public Command ChangePass => new Command(async () =>
         {
             Loading = true;
-            //peticion para envio de correo
-            //crear un if con la peticion correspondiente
-            //satisfactorio
+            
             if (Pass == ConfirmPass)
             {
-                Loading = false;
-                await Application.Current.MainPage.DisplayAlert("Exitoso", "Su contraseña ha sido cambiada exitosamente", "ok");
-                await CoreMethods.PopPageModel(false);
+                try
+                {
+                    Dictionary<string, string> change = new Dictionary<string, string>()
+                    {
+                        { "password", Pass}
+                    };
+
+                    
+                    var loginApi = RestService.For<IChangePass>(StaticValues.baseUrl);
+                    await loginApi.NewPass(change,token);
+
+                   var resp = await Application.Current.MainPage.DisplayAlert("Exitoso", "Su contraseña ha sido cambiada exitosamente.¿Desea recordar esta contraeña en el proximo inicio de Sesión?", "si","no");
+                    if (resp)
+                    {
+                        Preferences.Set("passUser", Pass);
+
+                    }
+                    await CoreMethods.PopPageModel(false);
+
+                    Loading = false;
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    await Application.Current.MainPage.DisplayAlert("Error", "La contraseña tiene que tener entre 8 y 12 caracteres","ok");
+
+                }
+               
 
             }
 
-            //no satisfactorio
             else
             {
                 Loading = false;

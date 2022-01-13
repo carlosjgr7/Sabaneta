@@ -62,8 +62,7 @@
                             </DataTrigger>
                         </StackLayout.Triggers>
                         <Image Source="warning.png" WidthRequest="80" HeightRequest="80"/>
-                        <Label TextColor="Gray" Text="No tienes permiso a esta seccion"/>
-
+                        <Label TextColor="Gray" Text="{Binding errorsmjProponente}"/>
                     </StackLayout>
 
                     <StackLayout x:Name="ProponenteTab" IsVisible="{Binding propuestaView}" Padding="0" >
@@ -106,8 +105,8 @@
                             Source="add.png"
                             BackgroundColor="Transparent"
                             HeightRequest="70" 
-                            Command="{Binding MakeOptionComand}"
-                                     
+                            IsVisible="{Binding viewbtn}"
+                            Command="{Binding MakeOptionComand}"               
                             />
                     </Grid>
                 </StackLayout>
@@ -136,7 +135,7 @@
                             </DataTrigger>
                         </StackLayout.Triggers>
                         <Image Source="warning.png" WidthRequest="80" HeightRequest="80"/>
-                        <Label TextColor="Gray" Text="No tienes permiso a esta seccion"/>
+                        <Label TextColor="Gray" Text="{Binding errorsmjVotante}"/>
                     </StackLayout>
 
                     <StackLayout Padding="0" BackgroundColor="white" x:Name="VotanteTab" IsVisible="{Binding votanteView}">
@@ -205,7 +204,7 @@
                             </DataTrigger>
                         </StackLayout.Triggers>
                         <Image Source="warning.png" WidthRequest="80" HeightRequest="80"/>
-                        <Label TextColor="Gray" Text="No tienes permiso a esta seccion"/>
+                        <Label TextColor="Gray" Text="{Binding errorsmjRevisor}"/>
                     </StackLayout>
 
                     <StackLayout Padding="0" BackgroundColor="white" x:Name="RevisorTab" IsVisible="{Binding revisorView}">

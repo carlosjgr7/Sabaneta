@@ -69,7 +69,10 @@ namespace Pconsulta.ViewModels
         {
             try
             {
-                var msj = new msj(){ mensaje = "ok"};
+                Dictionary<string, string> msj = new Dictionary<string, string>()
+                {
+                    {"msj","ok" }
+                };
                 var loginApi = RestService.For<IVoteOptions>(StaticValues.baseUrl);
                 await loginApi.PutVotation(electionId.ToString(), propuestaEstatus.propuesta.id.ToString(),msj, token);
                

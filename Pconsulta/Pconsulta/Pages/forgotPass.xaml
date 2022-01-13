@@ -21,7 +21,7 @@
             />
 
             <controls:StandardEntry
-                Text="{Binding Email}"
+                Text="{Binding email}"
                 HeightRequest="50"
                 Background="beige"
                 BorderColor="#007fff"
@@ -41,7 +41,7 @@
                 Command="{Binding toLoginPage}"
            />
             
-            <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading }"  />
+            <ActivityIndicator Color="Blue"  IsRunning="{Binding loading }"  />
         
         </StackLayout>
     </ContentPage.Content>
