@@ -25,10 +25,7 @@ namespace Pconsulta.PageModels
 
         public Command toMenuPageCommand => new Command(async () =>
         {
-            await CoreMethods.PushPageModel<forgotPass>();
-
-
-            /*  if (SwitchMe)
+              if (SwitchMe)
               {
                   Preferences.Set("emailUser", User);
                   Preferences.Set("passUser", Pass);
@@ -56,10 +53,10 @@ namespace Pconsulta.PageModels
                       }
                       catch(Exception e)
                       {
-                          Console.WriteLine("mensaje de error: "+e.Message.ToString());
+                          Console.WriteLine("Error: "+e.Message.ToString());
                           Loading = false;
 
-                      await Application.Current.MainPage.DisplayAlert("Alerta", "Usuario o contraseña incorrectas", "ok");
+                      await Application.Current.MainPage.DisplayAlert("Alerta", e.Message, "ok");
                       }
 
                   }
@@ -67,7 +64,7 @@ namespace Pconsulta.PageModels
                   {
                       Loading = false;
                       await Application.Current.MainPage.DisplayAlert("Alerta", "El correo y la contraseña no pueden ser vacios", "ok");
-                  }*/
+                  }
         });
 
         public Command ForgotPasswordCommand => new Command(async () =>
