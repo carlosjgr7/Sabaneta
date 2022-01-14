@@ -36,5 +36,16 @@
 	<string>Need permission to save files.</string>
 	<key>NSPhotoLibraryUsageDescription </key>
 	<string>Need permission to access files.</string>
+
+
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsForMedia</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+	</dict>
 </dict>
 </plist>
