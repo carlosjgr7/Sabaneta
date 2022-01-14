@@ -25,47 +25,49 @@ namespace Pconsulta.PageModels
 
         public Command toMenuPageCommand => new Command(async () =>
         {
-
-            if (SwitchMe)
-            {
-                Preferences.Set("emailUser", User);
-                Preferences.Set("passUser", Pass);
-            }
-                var loginApi = RestService.For<ILoginService>(StaticValues.baseUrl);
+            await CoreMethods.PushPageModel<forgotPass>();
 
 
-                LoginCredentialModel loginCredential = new LoginCredentialModel()
-                {
-                    email = User,
-                    password = Pass
-                };
+            /*  if (SwitchMe)
+              {
+                  Preferences.Set("emailUser", User);
+                  Preferences.Set("passUser", Pass);
+              }
+                  var loginApi = RestService.For<ILoginService>(StaticValues.baseUrl);
 
-                if (!String.IsNullOrEmpty(loginCredential.email) && !String.IsNullOrEmpty(loginCredential.password))
-                {
-                    try
-                    {
-                    Loading = true;
 
-                        var result = await loginApi.PostLoginAsync(loginCredential);
+                  LoginCredentialModel loginCredential = new LoginCredentialModel()
+                  {
+                      email = User,
+                      password = Pass
+                  };
 
-                        await CoreMethods.PushPageModel<PrincipalMenuViewModel>(result);
-                    Loading = false;
+                  if (!String.IsNullOrEmpty(loginCredential.email) && !String.IsNullOrEmpty(loginCredential.password))
+                  {
+                      try
+                      {
+                      Loading = true;
 
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine("mensaje de error: "+e.Message.ToString());
-                        Loading = false;
+                          var result = await loginApi.PostLoginAsync(loginCredential);
 
-                    await Application.Current.MainPage.DisplayAlert("Alerta", "Usuario o contraseña incorrectas", "ok");
-                    }
+                          await CoreMethods.PushPageModel<PrincipalMenuViewModel>(result);
+                      Loading = false;
 
-                }
-                else
-                {
-                    Loading = false;
-                    await Application.Current.MainPage.DisplayAlert("Alerta", "El correo y la contraseña no pueden ser vacios", "ok");
-                }
+                      }
+                      catch(Exception e)
+                      {
+                          Console.WriteLine("mensaje de error: "+e.Message.ToString());
+                          Loading = false;
+
+                      await Application.Current.MainPage.DisplayAlert("Alerta", "Usuario o contraseña incorrectas", "ok");
+                      }
+
+                  }
+                  else
+                  {
+                      Loading = false;
+                      await Application.Current.MainPage.DisplayAlert("Alerta", "El correo y la contraseña no pueden ser vacios", "ok");
+                  }*/
         });
 
         public Command ForgotPasswordCommand => new Command(async () =>
