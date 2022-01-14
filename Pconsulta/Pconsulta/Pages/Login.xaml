@@ -6,7 +6,7 @@
              BackgroundColor="{AppThemeBinding Light='white', Dark='white'}"
              
              >
-
+    <ScrollView>
     <Grid x:Name="FullScreenLandscape">
        
 
@@ -90,8 +90,8 @@
         <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading }"  Grid.Row="6" />
 
         <Path Grid.Row="0"  Data="m196.02,148.25999l316.00001,0l0,17.4846c-124.00001,60.58093 -225.00001,-29.50687 -316.00001,2.87675c0,-6.78712 0,-13.57423 0,-20.36135z" Stroke="#007f39" Aspect="Fill" Fill="#007fff"/>
-        <Path Grid.Row="10" Margin="-180,0,0,0" Rotation="180" Data="m152.41862,496.46152l471.60143,0l0,8.36852c-17.27319,46.70444 -341.7618,-23.69511 -471.60143,1.37688c0,-3.24847 0,-6.49693 0,-9.7454z" Stroke="#007f39" Aspect="Fill" Fill="#007fff"/>
     
     </Grid>
+    </ScrollView>
 
 </ContentPage>

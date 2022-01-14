@@ -12,9 +12,9 @@ namespace Pconsulta.Utilities
         public static string UserProponente = "Proponente";
         public static string UserVotante    = "Votante";
         public static string UserRevisor    = "Revisor";
-        public static string ElecProponer = "Proponer";
-        public static string ElecVotar    = "Votar";
+        public static string ElecProponer   = "Proponer";
+        public static string ElecVotar      = "Votar";
         public static string ElecRevisar    = "Revisar";
-        public static string ElecFinalizada    = "Finalizada";
+        public static string ElecFinalizada = "Finalizada";
     }
 }
