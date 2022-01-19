@@ -5,9 +5,5 @@ using System.Text;
 
 namespace Pconsulta.Models
 {
-    [AddINotifyPropertyChangedInterface]
-    public class changeOptions
-    {
-        public bool status { get; set; }
-    }
+
 }

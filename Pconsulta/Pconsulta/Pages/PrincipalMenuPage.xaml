@@ -18,13 +18,19 @@
             Order="Secondary"
             />
         
+        <ToolbarItem
+            Text="Ultima Eleccion"
+            Command="{Binding toLastView}"
+            Priority="2"
+            Order="Secondary"
+            />
+        
         <ToolbarItem 
-                
-                 Text="Cerrar Sesión"    
-                 Icon="cerrarSesion.png"
-                 Order="Secondary"
-                 Priority="2" 
-                 Command="{Binding Logout}"/>
+            Text="Cerrar Sesión"    
+            Order="Secondary"
+            Priority="3" 
+            Command="{Binding Logout}"
+            />
     </ContentPage.ToolbarItems>
     
     <NavigationPage.TitleView>
@@ -106,7 +112,7 @@
                             BackgroundColor="Transparent"
                             HeightRequest="70" 
                             IsVisible="{Binding viewbtn}"
-                            Command="{Binding MakeOptionComand}"               
+                            Command="{Binding MakeOptionCommand}"               
                             />
                     </Grid>
                 </StackLayout>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Pconsulta.Pages.ViewLastWinPage"
+              BackgroundColor="{AppThemeBinding Light='white', Dark='white'}">
+
+    <ContentPage.ToolbarItems >
+
+        <ToolbarItem Text="Carlos Gonzalez" Priority="0" Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout  Padding="0" >
+            <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
+                <StackLayout>
+                    <Label  Text="{Binding Eleccion.info.name}"  TextColor="#303F9F" FontSize="24" 
+                            FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </StackLayout>
+            </Frame>
+            <Grid >
+                <ListView HorizontalOptions="StartAndExpand" VerticalOptions="FillAndExpand"
+                        SeparatorColor="LightGray" SeparatorVisibility="Default" HasUnevenRows="True"
+                        ItemsSource="{Binding LastView}" CachingStrategy="RecycleElement"
+                        SelectedItem="{Binding selectedItemComandProp, Mode=TwoWay}"
+                        >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="FillAndExpand"
+                                            MinimumHeightRequest="100">
+                                    <StackLayout Orientation="Vertical" Padding="2" VerticalOptions="Center" Spacing="2">
+                                        <Label Text="{Binding title}" FontSize="24" TextColor="Black" FontAttributes="Bold"/>
+                                        <Label Text="{Binding descript}" FontSize="14" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="10" />
+                                        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                                            <Label Text="votos:" FontSize="14" TextColor="Gray" />
+                                            <Label Text="{Binding votes}" FontSize="14" TextColor="Gray" LineBreakMode="TailTruncation" MaxLines="3" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Label Text="{Binding finish}" FontSize="Medium" TextColor="Gray" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"
+                   FontAttributes="Bold"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

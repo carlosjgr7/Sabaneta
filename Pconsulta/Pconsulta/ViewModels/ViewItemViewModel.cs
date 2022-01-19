@@ -24,6 +24,9 @@ namespace Pconsulta.ViewModels
     {
         public Models.Election.Option propuestas { get; set; }
         public string selectItem { get; set; }
+        public string urlImgOne { get; set; } = "";
+        public string urlImgTwo { get; set; } = "";
+        public string urlPdf { get; set; } = "";
         public string imageVotation { get; set; } = "like.png";
         public bool opcVotada { get; set; } 
         public bool isloading { get; set; } = false;
@@ -43,6 +46,31 @@ namespace Pconsulta.ViewModels
                 token = propuestaEstatus.token;
                 propuestas = propuestaEstatus.propuesta;
                 opcVotada = propuestaEstatus.opcVotada;
+
+                if (propuestaEstatus.propuesta.Imgs != null)
+                {
+
+
+                    for (int i = 0; i < propuestaEstatus.propuesta.Imgs.Length; i++)
+                    {
+                        if (propuestaEstatus.propuesta.Imgs[i].format.Contains("image"))
+                        {
+                            if (urlImgOne != "")
+                            {
+                                urlImgTwo = propuestaEstatus.propuesta.Imgs[i].path;
+                            }
+                            else
+                            {
+                                urlImgOne = propuestaEstatus.propuesta.Imgs[i].path;
+                            }
+                        }
+                        else
+                        {
+                            urlPdf = propuestaEstatus.propuesta.Imgs[i].path;
+                        }
+
+                    }
+                }
                 
                 if (opcVotada)
                 {
@@ -69,6 +97,7 @@ namespace Pconsulta.ViewModels
         {
             try
             {
+                isloading = true;
                 Dictionary<string, string> msj = new Dictionary<string, string>()
                 {
                     {"msj","ok" }
@@ -81,6 +110,7 @@ namespace Pconsulta.ViewModels
                     imageVotation = "likeIn.png";
                     opcVotada = true;
                 }
+                isloading = false;
 
                 PreviousPageModel.ReverseInit(returnedData: propuestaEstatus);
 
@@ -98,16 +128,29 @@ namespace Pconsulta.ViewModels
 
         public Command RevisorComand => new Command(async () =>
         {
-            var change = new changeOptions
+            try
             {
-                status = true
-            };
+                isloading = true;
 
-            var loginApi = RestService.For<IChangeStatus>(StaticValues.baseUrl);
-            await loginApi.PutElectionChange(propuestaEstatus.propuesta.id.ToString(), change,token);
+                var status = new Dictionary<string, bool>
+                {
+                    { "status", true }
+                };
+
+                var loginApi = RestService.For<IChangeStatus>(StaticValues.baseUrl);
+                await loginApi.PutElectionChange(propuestaEstatus.propuesta.id.ToString(), status, token);
+
+                PreviousPageModel.ReverseInit(returnedData: propuestaEstatus);
+                isloading = false;
+
+                await CoreMethods.PopPageModel(false);
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
             
-            PreviousPageModel.ReverseInit(returnedData: propuestaEstatus);
-            await CoreMethods.PopPageModel(false);
 
         });
 
@@ -115,24 +158,59 @@ namespace Pconsulta.ViewModels
 
         public Command ReadPdfCommand => new Command(async () =>
         {
-            isloading = true;
-            var httpClient = new HttpClient();
-            var stream = await httpClient.GetStreamAsync("https://gerald.verslu.is/subscribe.pdf");
-
-            using (var memoryStream = new MemoryStream())
+            if (urlPdf != "")
             {
-                await stream.CopyToAsync(memoryStream);
+                isloading = true;
+                var httpClient = new HttpClient();
+                var stream = await httpClient.GetStreamAsync(StaticValues.baseUrl+urlPdf);
 
-                await CrossXamarinFormsSaveOpenPDFPackage.Current.SaveAndView("myFile.pdf", "application/pdf", memoryStream, PDFOpenContext.InApp);
+                using (var memoryStream = new MemoryStream())
+                {
+                    await stream.CopyToAsync(memoryStream);
+
+                    await CrossXamarinFormsSaveOpenPDFPackage.Current.SaveAndView("myFile.pdf", "application/pdf", memoryStream, PDFOpenContext.InApp);
+                }
+                isloading = false;
             }
-            isloading = false;
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("AVISO", "Sin Documentos Cargados", "ok");
+
+            }
+
         });
 
         public Command ToViewImagePageCommand => new Command(async () =>
         {
-            isloading = true;
-            await CoreMethods.PushPageModel<ViewImageViewModel>("https://www.elcarrocolombiano.com/wp-content/uploads/2021/02/20210208-TOP-75-CARROS-MAS-VENDIDOS-DE-COLOMBIA-EN-ENERO-2021-01.jpg");
-            isloading = false;
+            if (urlImgOne != "")
+            {
+                var url = StaticValues.baseUrl + urlImgOne;
+                isloading = true;
+                await CoreMethods.PushPageModel<ViewImageViewModel>(url);
+                isloading = false;
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("AVISO", "Imagen no Cargada", "ok");
+
+            }
+
+        });
+
+        public Command ToViewImageTwoPageCommand => new Command(async () =>
+        {
+            if (urlImgTwo != "")
+            {
+                var url = StaticValues.baseUrl + urlImgTwo;
+                isloading = true;
+                await CoreMethods.PushPageModel<ViewImageViewModel>(url);
+                isloading = false;
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("AVISO", "Imagen no Cargada", "ok");
+            }
+
 
         });
 

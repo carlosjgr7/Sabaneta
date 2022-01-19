@@ -35,17 +35,7 @@ namespace Pconsulta.Models.Login
     }
 
     [AddINotifyPropertyChangedInterface]
-    public class Option
-    {
-        public string title { get; set; }
-        public string descript { get; set; }
-        public int votes { get; set; }
-        public int id { get; set; }
-        public int creator { get; set; }
-        public bool status { get; set; }
-    }
-
-    [AddINotifyPropertyChangedInterface]
+ 
     public class Vote
     {
         public string title { get; set; }

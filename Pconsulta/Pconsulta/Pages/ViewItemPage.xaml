@@ -63,6 +63,7 @@
                                     />
                         </StackLayout>
 
+
                         <StackLayout   IsVisible="{Binding revisor}" Margin="0,50,0,0" Orientation="Horizontal" >
                             <Button
                                 Text="Aprobar"
@@ -74,6 +75,8 @@
                                     />
                          
                         </StackLayout>
+
+                        <ActivityIndicator Color="Blue"  IsRunning="{Binding isloading}"  VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />
 
 
                     </StackLayout>
@@ -101,6 +104,7 @@
                             BackgroundColor="Transparent"
                             HeightRequest="40"           
                          />
+                        
                         <Button
                             HorizontalOptions="Start"
                             BackgroundColor="#007f39"
@@ -142,7 +146,7 @@
                             CornerRadius="8"
                             HeightRequest="40"
                             Text="Ver"  
-                            Command="{Binding ToViewImagePageCommand}"
+                            Command="{Binding ToViewImageTwoPageCommand}"
                        />
                     </StackLayout>
                     <ActivityIndicator Color="Blue"  IsRunning="{Binding isloading}"  VerticalOptions="Center" HorizontalOptions="CenterAndExpand" />

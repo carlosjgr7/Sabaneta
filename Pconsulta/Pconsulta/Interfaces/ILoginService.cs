@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace Pconsulta.Interfaces
 {
+    [Headers("Content-Type: application/json")]
     public interface ILoginService
     {
         [Post("/auth/login")]
-        [Headers("Content-Type: application/json")]
         Task<LoginResponse> PostLoginAsync([Body] LoginCredentialModel loginCredential);
 
         

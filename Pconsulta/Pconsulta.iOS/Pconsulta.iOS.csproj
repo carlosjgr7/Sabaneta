@@ -218,4 +218,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\warning.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\uploadImg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\uploadFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\success.png" />
+  </ItemGroup>
 </Project>

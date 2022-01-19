@@ -12,6 +12,6 @@ namespace Pconsulta.Interfaces
     interface IChangeStatus
     {
         [Put("/options/{id}")]
-        Task PutElectionChange(string id, [Body] changeOptions status, [Header("authorization")] string token);
+        Task PutElectionChange(string id, [Body] Dictionary<string,bool> status, [Header("authorization")] string token);
     }
 }

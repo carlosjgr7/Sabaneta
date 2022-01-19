@@ -37,7 +37,17 @@ namespace Pconsulta.Models.Election
         public int id { get; set; }
         public int creator { get; set; }
         public bool status { get; set; }
-        public object[] Imgs { get; set; }
+        public Imgs[] Imgs { get; set; }
+    }
+
+
+    [AddINotifyPropertyChangedInterface]
+    public class Imgs
+    {
+        public int id { get; set; }
+        public string path { get; set; }
+        public string format { get; set; }
+
     }
 
 

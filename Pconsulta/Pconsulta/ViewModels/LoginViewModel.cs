@@ -31,8 +31,6 @@ namespace Pconsulta.PageModels
                   Preferences.Set("passUser", Pass);
               }
                   var loginApi = RestService.For<ILoginService>(StaticValues.baseUrl);
-
-
                   LoginCredentialModel loginCredential = new LoginCredentialModel()
                   {
                       email = User,
@@ -56,7 +54,7 @@ namespace Pconsulta.PageModels
                           Console.WriteLine("Error: "+e.Message.ToString());
                           Loading = false;
 
-                      await Application.Current.MainPage.DisplayAlert("Alerta", e.Message, "ok");
+                      await Application.Current.MainPage.DisplayAlert("Alerta", "usuario o contraseña invalidos", "ok");
                       }
 
                   }

@@ -64,7 +64,7 @@
        
         <StackLayout Grid.Row="6" Margin="16,5" Orientation="Horizontal">
             <CheckBox Color="#3449AE" IsChecked="{Binding SwitchMe}"/>
-            <Label Text="recuerdame" VerticalOptions="Center"  TextColor="Black" />
+            <Label Text="Recuerdame" VerticalOptions="Center"  TextColor="Black" />
             <Label Text="¿Olvido su contraseña?" FontSize="10" HorizontalTextAlignment="End" TextColor="Red" HorizontalOptions="EndAndExpand"  >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
@@ -88,8 +88,7 @@
         <ActivityIndicator Color="Blue"  IsRunning="{Binding Loading }"  Grid.Row="8" />
 
         <Path Grid.Row="0"  Data="m196.02,148.25999l316.00001,0l0,17.4846c-124.00001,60.58093 -225.00001,-29.50687 -316.00001,2.87675c0,-6.78712 0,-13.57423 0,-20.36135z" Stroke="#007f39" Aspect="Fill" Fill="#007fff"/>
-    
-    </Grid>
+        </Grid>
     </ScrollView>
 
 </ContentPage>

@@ -6,10 +6,9 @@
 >
     <ContentPage.Content>
         <StackLayout>
-            
+
             <Image 
                 Source="{Binding urlImage}"
-                
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                 />

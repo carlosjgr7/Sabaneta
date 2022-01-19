@@ -1,13 +1,140 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:controls="clr-namespace:Pconsulta.Controls"
              x:Class="Pconsulta.Pages.MakeOptionPage"
              BackgroundColor="{AppThemeBinding Light='white', Dark='white'}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding test}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView Orientation="Both">
+           <StackLayout >
+     
+
+            <controls:StandardEntry
+                    Text="{Binding title}"
+                    Margin="20,10,20,0"
+                    Keyboard="Text"
+                    HeightRequest="50"
+                    BackgroundColor="White"
+                    BorderColor="#E63244"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    TextColor="#676767"
+                    Placeholder="Titulo de la propuesta"
+                    PlaceholderColor="#959595"
+            />
+
+                <Frame
+                    Padding="0"
+                    Margin="20,0,20,0"
+                    CornerRadius="10"
+                    WidthRequest="20"
+                    >
+                    
+                    <Editor 
+                        Text="{Binding description}"
+                        x:Name="tweetText"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center"
+                        HeightRequest="250"
+                        FontFamily="Bold"
+                        BackgroundColor="White"
+                        TextColor="#676767"
+                        AutoSize="TextChanges"
+                        PlaceholderColor="#959595"
+                        Placeholder="Describa la propuesta..."/>
+                </Frame>
+
+                <StackLayout Orientation="Vertical" Padding="10,20,10,0" Margin="10,0">
+                    <StackLayout Orientation="Horizontal" 
+                                 >
+                        <ImageButton 
+                            HorizontalOptions="Start"
+                            Source="uploadImg.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="40"           
+                         />
+
+                        <Button
+                            HorizontalOptions="Start"
+                            BackgroundColor="#007f39"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            Text="IMG1"  
+                            Command="{Binding UploadImgCommand}"
+                       />
+
+
+                        <ImageButton 
+                            HorizontalOptions="EndAndExpand"
+                            Source="uploadFile.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="40"      
+                            Command="{Binding UploadImgTwoCommand}"
+                         />
+                        <Button
+                            HorizontalOptions="End"
+                            BackgroundColor="#007f39"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            Text="PDF"  
+                            Command="{Binding UploadPdfCommand}"
+                       />
+                        <Image 
+                            Margin="0,0,10,0"
+                            WidthRequest="20"
+                            Source="success.png"
+                            IsVisible="{Binding loadPdf}"/>
+                    </StackLayout>
+
+
+                    <StackLayout Orientation="Horizontal">
+                        <ImageButton 
+                            HorizontalOptions="Start"
+                            Source="uploadImg.png"
+                            BackgroundColor="Transparent"
+                            HeightRequest="40"     
+                            
+                         />
+                        <Button
+                            HorizontalOptions="StartAndExpand"
+                            BackgroundColor="#007f39"
+                            CornerRadius="8"
+                            HeightRequest="40"
+                            Text="IMG2"  
+                            Command="{Binding UploadImgTwoCommand}"
+                       />
+                    </StackLayout>
+                        
+                </StackLayout>
+                <ActivityIndicator Color="#007fff"  IsRunning="{Binding Loading}" />
+                
+            <StackLayout Orientation="Horizontal" Padding="20">
+                <Image 
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="Start"
+                    WidthRequest="150"
+                    HeightRequest="120"
+                    Source="{Binding imgOne}"/>
+                <Image 
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="End"
+                    WidthRequest="150"
+                    HeightRequest="120"
+                    Source="{Binding imgTwo}"
+                    />
+                
+                </StackLayout>
+                <Button
+                    Margin="20,0,20,10"
+                    BackgroundColor="#007f39"
+                    VerticalOptions="EndAndExpand"
+                    CornerRadius="8"
+                    TextColor="white"
+                    Text="Enviar Propuesta"  
+                    Command="{Binding SendPropuestaCommand}"
+                />
+
+
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

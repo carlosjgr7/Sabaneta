@@ -36,9 +36,6 @@ namespace Pconsulta.Pages
           
         }
 
-        private void ImageButton_Clicked_1(object sender, EventArgs e)
-        {
-            this.DisplayAlert("Nueva Propuesta", "Servicio desactivado por carga a tiendas", "ok");
-        }
+       
     }
 }

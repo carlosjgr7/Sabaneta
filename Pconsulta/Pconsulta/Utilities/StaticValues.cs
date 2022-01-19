@@ -7,8 +7,6 @@ namespace Pconsulta.Utilities
     public static class StaticValues
     {
         public static string baseUrl = "http://31.220.31.43:5000/v1";
-
-
         public static string UserProponente = "Proponente";
         public static string UserVotante    = "Votante";
         public static string UserRevisor    = "Revisor";

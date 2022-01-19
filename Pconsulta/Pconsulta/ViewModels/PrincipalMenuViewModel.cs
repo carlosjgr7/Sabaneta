@@ -39,6 +39,7 @@ namespace Pconsulta.ViewModels
 
                 if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserProponente)))
                 {
+                 
                     Models.Election.Option option = new Models.Election.Option()
                     {
                         title = PersonData.option.title,
@@ -46,7 +47,9 @@ namespace Pconsulta.ViewModels
                         id = PersonData.option.id,
                         status = PersonData.option.status,
                         votes = PersonData.option.votes,
-                        creator = PersonData.option.creator
+                        creator = PersonData.option.creator,
+                        Imgs = PersonData.option.Imgs
+
                     };
                     
                     if (option.title != null)
@@ -68,10 +71,12 @@ namespace Pconsulta.ViewModels
 
                 if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserVotante)))
                 {
-                    if (PersonData.election.status.name == StaticValues.ElecVotar)
+                if (PersonData.election.status.name == StaticValues.ElecVotar)
+               // if(true)
                     {
                         Task.Run(async () => await LoadVotanteList());
                         votanteView = true;
+                       
                         if (PersonData.vote.id.ToString() != null && PersonData.vote.id.ToString() != "")
                         {
                             yourVote = PersonData.vote.id;
@@ -94,7 +99,8 @@ namespace Pconsulta.ViewModels
 
                 if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserRevisor)))
                 {
-                    if (PersonData.election.status.name == StaticValues.ElecVotar)
+                   if (PersonData.election.status.name == StaticValues.ElecRevisar)
+                  // if(true)
                     {
                         Task.Run(async () => await LoadRevisorList());
                         revisorView = true;
@@ -179,9 +185,11 @@ namespace Pconsulta.ViewModels
             }
         }
 
-        public Models.Election.Option itemselectProp { get; set; }
         public Models.Election.Option itemselectvotante { get; set; }
         public Models.Election.Option itemselectrevisor { get; set; }
+
+        public Models.Election.Option itemselectProp { get; set; }
+
         public Models.Election.Option selectedItemComandProp
         { 
             get => itemselectProp;
@@ -248,11 +256,11 @@ namespace Pconsulta.ViewModels
         public bool votanteView { get; set; }
         public bool revisorView { get; set; }
 
+        public Command MakeOptionCommand => new Command(async () =>
+        {
 
-       
-       
-
-
+            await CoreMethods.PushPageModel<MakeOptionViewModel>(PersonData);
+        });
 
         #region "Toolbar"
 
@@ -269,6 +277,14 @@ namespace Pconsulta.ViewModels
         public Command MakeOptionComand => new Command(async () =>
         {
             await CoreMethods.PushPageModel<MakeOptionViewModel>();
+        });
+
+         public Command toLastView => new Command(async () =>
+        {
+            var Api = RestService.For<ILastView>(StaticValues.baseUrl);
+            var result = await Api.GetLastElection(PersonData.token);
+
+            await CoreMethods.PushPageModel<ViewLastWinViewModel>(result);
         });
 
 
