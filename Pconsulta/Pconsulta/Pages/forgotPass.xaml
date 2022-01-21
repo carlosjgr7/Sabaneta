@@ -36,6 +36,7 @@
                 Grid.Row="7"
                 Margin="20,0"
                 BackgroundColor="#007f39"
+                TextColor="white"
                 CornerRadius="8"
                 Text="Solicitar Contraseña"  
                 Command="{Binding toLoginPage}"
