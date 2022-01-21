@@ -33,7 +33,7 @@ namespace Pconsulta.PageModels
                   var loginApi = RestService.For<ILoginService>(StaticValues.baseUrl);
                   LoginCredentialModel loginCredential = new LoginCredentialModel()
                   {
-                      email = User,
+                      email = User.ToLower(),
                       password = Pass
                   };
 

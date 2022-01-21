@@ -51,73 +51,81 @@ namespace Pconsulta.ViewModels
                 descript = description,
                 election = personData.election.id
             };
-
-            try
+            if(newOptionModel.title != null ||newOptionModel.descript != null)
             {
-                var apiServices = RestService.For<INewOption>(StaticValues.baseUrl);
-                var result = await apiServices.PostNewOption(
-                    newOptionModel,
-                    personData.token
-                    );
-
-                if (result.message.Length > 0)
+                try
                 {
-                    if (stream1 != null)
+                    var apiServices = RestService.For<INewOption>(StaticValues.baseUrl);
+                    var result = await apiServices.PostNewOption(
+                        newOptionModel,
+                        personData.token
+                        );
+
+                    if (result.message.Length > 0)
                     {
-                        var files = new StreamPart(await stream1.OpenReadAsync(), "imagen1.jpg", "image/jpeg");
-                        try
+                        if (stream1 != null)
                         {
-                            var api = RestService.For<IAddImageToOption>(StaticValues.baseUrl);
-                            await api.UploadImages(result.info.id, files, personData.token);
+                            var files = new StreamPart(await stream1.OpenReadAsync(), "imagen1.jpg", "image/jpeg");
+                            try
+                            {
+                                var api = RestService.For<IAddImageToOption>(StaticValues.baseUrl);
+                                await api.UploadImages(result.info.id, files, personData.token);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+
                         }
-                        catch (Exception e)
+
+                        if (stream2 != null)
                         {
-                            Console.WriteLine(e.Message);
+                            var files = new StreamPart(await stream2.OpenReadAsync(), "imagen2.jpg", "image/jpeg");
+                            try
+                            {
+                                var api = RestService.For<IAddImageToOption>(StaticValues.baseUrl);
+                                await api.UploadImages(result.info.id, files, personData.token);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+
                         }
+
+                        if (stream3 != null)
+                        {
+                            var files = new StreamPart(await stream3.OpenReadAsync(), "doc.pdf", "application/pdf");
+                            try
+                            {
+                                var api = RestService.For<IAddImageToOption>(StaticValues.baseUrl);
+                                await api.UploadImages(result.info.id, files, personData.token);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                        }
+                        Loading = false;
+                        await Application.Current.MainPage.DisplayAlert("Exitoso", "Su propuesta fue creada con exito... Hasta luego", "ok");
+                        await CoreMethods.PushPageModel<LoginViewModel>();
+
 
                     }
-
-                    if (stream2 != null)
-                    {
-                        var files = new StreamPart(await stream2.OpenReadAsync(), "imagen2.jpg", "image/jpeg");
-                        try
-                        {
-                            var api = RestService.For<IAddImageToOption>(StaticValues.baseUrl);
-                            await api.UploadImages(result.info.id, files, personData.token);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-
-                    }
-
-                    if (stream3 != null)
-                    {
-                        var files = new StreamPart(await stream3.OpenReadAsync(), "doc.pdf", "application/pdf");
-                        try
-                        {
-                            var api = RestService.For<IAddImageToOption>(StaticValues.baseUrl);
-                            await api.UploadImages(result.info.id, files, personData.token);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
-                    }
-                    Loading = false;
-                    await Application.Current.MainPage.DisplayAlert("Exitoso", "Su propuesta fue creada con exito... Hasta luego", "ok");
-                    await CoreMethods.PushPageModel<LoginViewModel>();
-
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
 
                 }
             }
-            catch(Exception e)
+            else
             {
-                Console.WriteLine(e.Message);
+                await Application.Current.MainPage.DisplayAlert("Aviso", "El titulo y la descripcion de su propuesta no pueden estar vacios", "ok");
 
             }
-            
+
+
         });
 
 

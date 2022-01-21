@@ -64,8 +64,8 @@
        
         <StackLayout Grid.Row="6" Margin="16,5" Orientation="Horizontal">
             <CheckBox Color="#3449AE" IsChecked="{Binding SwitchMe}"/>
-            <Label Text="Recuerdame" VerticalOptions="Center"  TextColor="Black" />
-            <Label Text="¿Olvido su contraseña?" FontSize="10" HorizontalTextAlignment="End" TextColor="Red" HorizontalOptions="EndAndExpand"  >
+            <Label Text="Recuérdame" VerticalOptions="Center"  TextColor="Black" />
+            <Label Text="¿Olvidó su contraseña?" FontSize="10" HorizontalTextAlignment="End" TextColor="Red" HorizontalOptions="EndAndExpand"  >
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
                 </Label.GestureRecognizers>

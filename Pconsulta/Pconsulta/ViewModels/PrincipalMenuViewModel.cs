@@ -29,6 +29,7 @@ namespace Pconsulta.ViewModels
         public string errorsmjProponente { get; set; } 
         public string errorsmjVotante { get; set; } 
         public string errorsmjRevisor { get; set; } 
+        public string propuestaName { get; set; } 
 
 
         public override void Init(object initData = null)
@@ -36,6 +37,14 @@ namespace Pconsulta.ViewModels
             if (initData != null)
             {
                 PersonData = initData as LoginResponse;
+                if(PersonData.election.status.name == StaticValues.ElecFinalizada)
+                {
+                    propuestaName = "No hay elecciones activas";
+                }
+                else
+                {
+                    propuestaName = PersonData.election.name;
+                }
 
                 if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserProponente)))
                 {
@@ -69,54 +78,70 @@ namespace Pconsulta.ViewModels
                     propuestaView = false;
                 }
 
-                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserVotante)))
-                {
-                if (PersonData.election.status.name == StaticValues.ElecVotar)
-               // if(true)
-                    {
-                        Task.Run(async () => await LoadVotanteList());
-                        votanteView = true;
-                       
-                        if (PersonData.vote.id.ToString() != null && PersonData.vote.id.ToString() != "")
-                        {
-                            yourVote = PersonData.vote.id;
 
+
+                if(PersonData.election.status.name == StaticValues.ElecFinalizada)
+                {
+                    votanteView = false;
+                    errorsmjVotante = "NO HAY ELECCIONES ACTIVAS";
+
+                    votanteView = false;
+                    errorsmjRevisor = "NO HAY ELECCIONES ACTIVAS";
+                }
+                else
+                {
+                    if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserVotante)))
+                    {
+                        if (PersonData.election.status.name == StaticValues.ElecVotar)
+                        // if(true)
+                        {
+                            Task.Run(async () => await LoadVotanteList());
+                            votanteView = true;
+
+                            if (PersonData.vote.id.ToString() != null && PersonData.vote.id.ToString() != "")
+                            {
+                                yourVote = PersonData.vote.id;
+
+                            }
+                        }
+                        else
+                        {
+                            votanteView = false;
+                            errorsmjVotante = "La elección se encuentra en el estado " + PersonData.election.status.name;
                         }
                     }
                     else
                     {
                         votanteView = false;
-                        errorsmjVotante = "La elección se encuentra en el status "+PersonData.election.status.name;
+                        errorsmjVotante = "No tiene permiso para esta seccion";
+
                     }
-                }
-                else
-                {
-                    votanteView = false;
-                    errorsmjVotante = "No tiene permiso para esta seccion";
-
-                }
 
 
-                if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserRevisor)))
-                {
-                   if (PersonData.election.status.name == StaticValues.ElecRevisar)
-                  // if(true)
+                    if (PersonData.info.roles.Any(c => c.name.Equals(StaticValues.UserRevisor)))
                     {
-                        Task.Run(async () => await LoadRevisorList());
-                        revisorView = true;
+                        if (PersonData.election.status.name == StaticValues.ElecRevisar)
+                        // if(true)
+                        {
+                            Task.Run(async () => await LoadRevisorList());
+                            revisorView = true;
+                        }
+                        else
+                        {
+                            revisorView = false;
+                            errorsmjRevisor = "La elección se encuentra en el estado " + PersonData.election.status.name;
+                        }
                     }
                     else
                     {
                         revisorView = false;
-                        errorsmjRevisor = "La elección se encuentra en el status " + PersonData.election.status.name;
+                        errorsmjRevisor = "No tiene permiso para esta seccion";
+
                     }
-                }
-                else
-                {
-                    revisorView = false;
-                    errorsmjRevisor= "No tiene permiso para esta seccion";
 
                 }
+
+                
             }
         }
 

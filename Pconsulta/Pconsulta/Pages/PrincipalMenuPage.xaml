@@ -75,7 +75,7 @@
                     <Frame IsClippedToBounds="True" HasShadow="True" BackgroundColor="AliceBlue">
                         <StackLayout>
 
-                                <Label  Text="{Binding PersonData.election.name}"  TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                                <Label  Text="{Binding propuestaName}"  TextColor="#303F9F" FontSize="24" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                         </StackLayout>
                     </Frame>
                     <Grid >

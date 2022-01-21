@@ -6,7 +6,7 @@
 
     <ContentPage.ToolbarItems >
 
-        <ToolbarItem Text="Carlos Gonzalez" Priority="0" Order="Primary" />
+        <ToolbarItem Text="" Priority="0" Order="Primary" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
