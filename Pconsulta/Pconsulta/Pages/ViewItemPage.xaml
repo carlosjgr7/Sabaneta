@@ -70,6 +70,7 @@
                                 BackgroundColor="Green"
                                 CornerRadius="8"
                                 WidthRequest="150"
+                                TextColor="white"
                                 HorizontalOptions="CenterAndExpand"
                                 Command="{Binding RevisorComand}"
                                     />
@@ -110,6 +111,7 @@
                             BackgroundColor="#007f39"
                             CornerRadius="8"
                             HeightRequest="40"
+                            TextColor="White"
                             Text="Ver"  
                             Command="{Binding ToViewImagePageCommand}"
                        />
@@ -126,6 +128,7 @@
                             BackgroundColor="#007f39"
                             CornerRadius="8"
                             HeightRequest="40"
+                            TextColor="White"
                             Text="Ver"  
                             Command="{Binding ReadPdfCommand}"
                        />
@@ -145,6 +148,7 @@
                             BackgroundColor="#007f39"
                             CornerRadius="8"
                             HeightRequest="40"
+                            TextColor="White"
                             Text="Ver"  
                             Command="{Binding ToViewImageTwoPageCommand}"
                        />
