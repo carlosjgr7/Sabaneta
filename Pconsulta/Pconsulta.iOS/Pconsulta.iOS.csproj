@@ -70,7 +70,9 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\IOSStandardEntryRenderer.cs" />
     <Compile Include="Renderers\UITextFieldPadding.cs" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
